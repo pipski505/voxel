@@ -26,6 +26,11 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL30;
 
+/**
+ * Is used to handle textures in a 3D graphics application. It allows for loading and
+ * binding textures, as well as getting the ID of the loaded texture. The loadTexture
+ * method takes a file path as an argument and returns the ID of the loaded texture.
+ */
 public class Texture {
 
 	private int id;
@@ -37,20 +42,50 @@ public class Texture {
 	}
 
 
+	/**
+	 * 0 is called and performs an action related to binding.
+	 */
 	public void bind() {
 		bind(0);
 	}
 
+	/**
+	 * Sets the active texture slot in the GPU to a specified index within a range of 0
+	 * to 31, binding a texture to that slot.
+	 * 
+	 * @param samplerSlot 0-based index of a texture slot within the current active texture
+	 * unit, ranging from 0 to 31.
+	 */
 	public void bind(int samplerSlot) {
 		assert (samplerSlot >= 0 && samplerSlot <= 31);
 		glActiveTexture(GL_TEXTURE0 + samplerSlot);
 		glBindTexture(GL_TEXTURE_2D, id);
 	}
 
+	/**
+	 * Retrieves and returns the value of a field called `id`.
+	 * 
+	 * @returns an integer representing the ID of the object.
+	 */
 	public int getID() {
 		return id;
 	}
 
+	/**
+	 * Loads a 2D texture from a file, generates mipmaps, and returns the ID of the created
+	 * texture.
+	 * 
+	 * @param fileName file path of the texture to load.
+	 * 
+	 * @returns an integer identifier of a generated texture.
+	 * 
+	 * 	- The output is an integer, which represents the ID of the generated texture.
+	 * 	- The texture is of type 2D and has an RGBA8 internal format.
+	 * 	- The texture size is specified by the width and height parameters, which are
+	 * obtained from the input file name.
+	 * 	- The texture has a linear filter and is repeat-enabled in both the x and y directions.
+	 * 	- A mipmap is generated using the `GLGenerateMipmap` function.
+	 */
 	private static int loadTexture(String fileName) {
 		try {
 			BufferedImage image = ImageIO.read(new File(fileName));
