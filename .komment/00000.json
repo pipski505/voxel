@@ -170,5 +170,306 @@
         ]
       }
     }
+  },
+  {
+    "name": "Model.java",
+    "path": "src/com/ch/Model.java",
+    "content": {
+      "structured": {
+        "description": "A `Model` class that loads and renders 3D models using OpenGL. The class takes in an array of vertices and an array of indices to render the model. It also defines several methods for binding and unbinding vertex arrays, enabling and disabling vertex attributes, and getting the VAO handle and size of the model.",
+        "diagram": {
+          "path": "src/com/ch/Model.java",
+          "gviz": "digraph G {\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"]\n    \n    subgraph cluster_2 {\n        label=\"org/lwjgl\"\n        color=\"#33363A\"\n        GL30 [label=\"org.lwjgl.opengl.GL30\", style=\"rounded,filled\"]\n        GL20 [label=\"org.lwjgl.opengl.GL20\", style=\"rounded,filled\"]\n        GL15 [label=\"org.lwjgl.opengl.GL15\", style=\"rounded,filled\"]\n        GL11 [label=\"org.lwjgl.opengl.GL11\", style=\"rounded,filled\"]\n    }\n    subgraph cluster_3 {\n        label=\"com\"\n        color=\"#33363A\"\n        subgraph cluster_main {\n            // style=filled\n            color=\"#00000000\"\n            Model [] [fontsize=\"20pt\",style=filled,color=\"#26de81\",shape=square, fontname=\"Courier New\"]\n            label = \"\"\n        }\n        subgraph cluster_4 {\n            label=\"ch\"\n            color=\"#33363A\"\n            Chunk []\n        }\n    }\n    Model -> GL11 [style=\"dashed\"]\n    Model -> GL20 [style=\"dashed\"]\n    Model -> GL30 [style=\"dashed\"]\n    Chunk -> Model [penwidth=2]\n    Chunk -> Model [style=\"dashed\"]\n    Model -> GL15 [style=\"dashed\"]\n}\n",
+          "d2": "<?xml version=\"1.0\" encoding=\"utf-8\"?><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" d2Version=\"v0.6.5\" preserveAspectRatio=\"xMinYMin meet\" viewBox=\"0 0 694 1040\"><svg id=\"d2-svg\" class=\"d2-4025846587\" width=\"694\" height=\"1040\" viewBox=\"11 11 694 1040\"><rect x=\"11.000000\" y=\"11.000000\" width=\"694.000000\" height=\"1040.000000\" rx=\"0.000000\" fill=\"#151719\" stroke-width=\"0\" /><style type=\"text/css\"><![CDATA[\n.d2-4025846587 .text {\n\tfont-family: \"d2-4025846587-font-regular\";\n}\n@font-face {\n\tfont-family: d2-4025846587-font-regular;\n\tsrc: url(\"data:application/font-woff;base64,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\");\n}\n.d2-4025846587 .text-italic {\n\tfont-family: \"d2-4025846587-font-italic\";\n}\n@font-face {\n\tfont-family: d2-4025846587-font-italic;\n\tsrc: url(\"data:application/font-woff;base64,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\");\n}\n.d2-4025846587 .text-mono {\n\tfont-family: \"d2-4025846587-font-mono\";\n}\n@font-face {\n\tfont-family: d2-4025846587-font-mono;\n\tsrc: url(\"data:application/font-woff;base64,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\");\n}\n.d2-4025846587 .text-mono-bold {\n\tfont-family: \"d2-4025846587-font-mono-bold\";\n}\n@font-face {\n\tfont-family: d2-4025846587-font-mono-bold;\n\tsrc: url(\"data:application/font-woff;base64,d09GRgABAAAAABBsAAwAAAAAHAAAAQScAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABHAAAAGAAAABgmKbWhWNtYXAAAAF8AAAAhAAAAKACtgK5Z2FzcAAAAgAAAAAIAAAACAAAABBnbHlmAAACCAAACCIAAAsU+nQDNWhlYWQAAAosAAAANgAAADYbI9ohaGhlYQAACmQAAAAkAAAAJAYzALVobXR4AAAKiAAAAGUAAACETVgH3WxvY2EAAArwAAAARAAAAEQuxDGobWF4cAAACzQAAAAgAAAAIABVAmpuYW1lAAALVAAABO8AAA2sAwZtKnBvc3QAABBEAAAAIAAAACD/uAAzcHJlcAAAEGQAAAAHAAAAB2gGjIUABAJYArwABQAAAooCWAAAAEsCigJYAAABXgAyAR4AAAILAwkDBAMCAgQgAAL3AgA4AwAAAAAAAAAAQURCTwCgACD//wPY/u8AAAQkAcZgAAGfAAAAAAHeApQAAAAgAAN4nFzMy41BARhA4e8+5n1n5s4d70cPElGBhQ1ViNiKlUIUgCYsJOqhil8iVs7yLD4kMgkKuS0qpUxqaGRsYmZhZROBweNNzS2tI+IalzjHKY5xiH3s7tJzbR1dPX2JVCb34tWbdx8+fSl8+/Gr9Kfyr6auoanFDQAA//8BAAD//2R0GWAAAQAB//8AD3icfFZdUBvXFT73aqUFJAQraXclraSVtPpfSaBd/QBCEhKYCAwG8RNDCOCQeBoHsD0G16SGl6aunYmdcQc6ddxJZtzgmXrqutOHZpqmfmoebHemD2mf2odOpjPJTB46dMJTB0ud1VJ+kmlf7o7uXZ3vfN893zkLWhAAcApvgQYawQAmoAFWKA/ll4NBgSQzQVbOZAQeUwI2Ve9vh0JEeH1+/j4h8nf4y3N46/nSzPDCQvPHv7s4n80++BitACBI13ZxF74DLoAT3jhOJdNpWWJYMhAQvDodbWEYWUpnWJ0OvZZbnmgfv3U6/5qnwmZ88XIkcjLh67JWQkuGyOTG2NJ7Fdk9w9jkuWLvvOS2T7clAEG0tosFfAc8SvxA4H/ETwkpmdLp0OnxG6Ojb0+U5vgKLQUjfUFvv2wWmub/4Vk2nPzx+eX3RmX3DG1XIZqaLq5V/8K3g8JjEQC78U3QKprIlIde3ERefPP5zjrUz7sAsAvfBGf9nFWkkikhlczjjECSQjAouDQ03XW3hyGYnrvrhI7EGkkqy20aTOoIfPPLl1768vnqM64yNWp/9P77j+yjUxXumRq7V+GI9pTY/4ejouHpUxsDo28NZc/wfc6UI1LyCYVwsMhlo8uG3OWxscs5v2vGYvb2iGKP12Ge9fsAAENbbRe34sdgAW8d4b8AcjAlU0JQ0OlSioYHcAjmVnILqXC3lSA31/QabsAmmi1hhotzkuGdNyurBYdt+MHzXpnzrdG2p6YWV65t4ITKJbPPxXeMC0NbdKQn5SGT36I0OLwxMPjd0vDrKS2u3kA0Kyd8aZevr92b8yTE1xVelcv5wmKfxd/4qqM75y5JctFtoqY5HkADyVoMd6M9kKAE4weYCpnDR1qWWJkW6lnoBG8gWM9AlqX6hkZKp1PJQ63N6m/h4EVEF89mgwHa6bFzgewrHXHf09camzMvdxl9JkNTWHx54Tvla2O012Lx0hZl9YS6vVExzwlGc2vfn7mOqEsyE8YQb5NMhKkkdo+GDEt6wdw54NNqG1qbzaau3mQljp6a/JzdZzb77JzfVN1q5ShbM6ExsEbOqWpbBsAO/Fj1rUyTcl1bmhKouqwkVd5s0DgqHRPDm56QK2bHjx/OO2NLc9U/IV6Kc7bqbwCgVoNTAOgT/LUuoLgWdMDH1P1IrXt/3324DxiGAPAAfgwNYFDdIWdkRMvBjHlok/joXvX+H29P/A0/ri4+qd7a+Hym+ikgkGu7mMe/B0qtOEpIeSjLwaW/M3vmpyguuUx+1h0oGC7OoesrVYgLDQ1LhpY6V6VX5dGeUrGK31Sq7CHhOt8D4sKFJsIoie54gzElprpucka6acVoNFqa0E7OJYZD3rYXB6vbaCzG2qq/RmMsozwPNEV7YDmKc1TSNT3hHu+YOKVKinZK7vhxRVV/hdEetAD/rarXBb9RXihaXC2XV4vq6o2xbMxbX/cdrK5XVA+rq4JRrpXrGLTirNMHmR6UtMDS5kMkkmaY8ppeww+H8tPtuYUOT8FOkJOOqN0SdFtjLB37Lf65xAn5S0OTawWHvfIj5HMV5VjWRdueUq2AYBUA+9AemI7pr7YkklpdM2j857KeMONi/Y74tBvtLOWyTU1XSTLdW60CglRtt65rpK5IMFM3fCoZx8G6PMf7G+vCCg8UKn2/rRA7mw4H9Fyb/+zU997oXQ6W/BNh1tWaLAy96MksG2L8y06XjdK3NBsamKHO/knRNsVaG816i9lIRTvDsbKo3KtU28UBfANs+zeSElKZjEzLtHC0+fxgZDay/pb5zc8+Y+I+Zztj94wYMgvFXy3r7txZeeSP000NbzRRSrx8bRc3ox2lTk4r9SzvVzO130H/Pjm0yYcdUdvmmp7wjBqW5pBU/VyKWz2ov9r6gj8OSKkO3Il2oBlgRSOzDKPImsnImr9+snXKwOgJPW04desjtPOVfygUGvJ/VW2te4EAwBNoR5mBx/53JIIQDASUNEhysvIuryUJjVZP8otusllLaLWE48bQLzmiUUtoGnR2tPOFbyAQGBS2t5XngO+Laus9TznCn2i7V8fzA2AJ7SjarZiDR2BI9hDH//DeB7LBYSAa2cbo3Z89/KDT6DQSeqs+gfA/R2mRpqOW0dq/xugoTYvMmNKrO2q72I2vQzM4IXzglP02/E2fZLyHhyg6cD73w/MXruWWB92yyyW7+aTLleT5aJR3i6JheGvxw+3tDxe3hi+FzoyNz/r9s+NjZ0K3I14hHBa8EUAwAoCd+Gpde2XqpfI4I1MyPfKLW2JBsi7dvoIuzJAtdMvzvSuKBjIAZvF1cCjv53FKbQfBQ9OR6bQs010zbw9lEoECN5I4N1A621lczHE91p9MDG+ci7UlgvYRWZJmcunzF9Ia7boSN1LbxWZ8HeIq/31jqMxT+5PnGBBJ75uDTU/3W/vco6I3zXvHTxYGvVLUX/QMti3lTryR7ekMFf39lwxsiJt1+Civ1RFmXmcCNq/Pyb0UEMPDHYl+htCH8+HsuAgI4rVdbMFXlT6r5uHC8hF4s4f2kIdkEZeZ6rOX6HjK5evgSxIveooUulb9t571W7OvdvdfMlhDtlnKSbFRd7tkNEVQcf1KAxmZ6n3h1aTCW5k5D9CO8n31Sn0YIOYJmkEbK/s1/gzn0bv4a9ADFI/dfKSjIyJmMjifCIVlORxKqLNQmVUPDvx4IKM6Z4z4D/GTbtGVYHyh1idohklOf2puOdesZ+M+dHalGo9XCsqn0X8AAAD//wEAAP//YpEyHwAAAAEAAAABBJyRBk/yXw889QADA+gAAAAA3BxzpAAAAADdlx6g/0z+OgMMBCQAAQAGAAIAAAAAAAAAAQAAA9j+7wAAAlj/TP9MAwwAAQAAAAAAAAAAAAAAAAAAACF4nCyMvalCYQDFQnh7vEJsRBT8x8LG5haibXawdUqnkgtfdTiQxFgYJ2NtvI2rcTe2xtk4GJPxNFbGw9gPbxrcvB/jaOyMm/Fv/BlL42K8hjc3NqP3nf8PAAD//wEAAP//9bUTeAAAAAAAACoAWgCOAJ4AzAD8ATIBagHgAgQCEAIcAjYCVgKKAqwC3gMWAzYDdgOeA8AD3AQUBEAEfgSWBMIFBgU+BU4FZgWKAAEAAAAhAfgAKgBuAAYAAQAAAAAAAAAAAAAAAAADAAN4nJyWTW8b1RfGf2OntsdN+88/lNIUKJcSSholEztKoypFArdpVUNISpxSoVIJx3acUfwme9w2rFmwZMVnAMSqqy4QYpUFC5aIFSvEig+AWCA0Z449Y9ckbVWpee7c8/o8595r4J3Y38SxxmzgABRbnONAcYwUvyuOs8KfiseYsS4oPkbZWlecYNp6pDjJj9YvilMsxb5SbLMU+0nxcRZj/yg+ETfxjOKTLCVuKZ5iOvF5gC1IJ75WbDGe0FxWjInED4rjTCR+VjzG2cRvio8xnvhLcYLJ5JjiJJPJ04pTTCZnFNtMJlcUp5lOrik+jkm2FI8zl/xS8Qkyye8Vn8RJKlfW/1hMnVU8weVUL87/uZDq9TXJ26lvFb8QqfkU51N/KH4x0vvpSO8vRXKdieSa4qSdUnyWcbvX48sR31c4ZZ9X/Cppe1nxuYjva4zb7yo2TNi9+l8PZ8M6z6T9ieI3SNsNxdOROG9GaniLJfuh4ovM2t8pnsWxdWasOebSPY3mI3kdMmmdE2shUkOGmfSniheZTX+h+Fqk31Xh8BsMi2TIksEwr6tFWeUo02SbCoYC+3TwqFCngyFPgxJN2rTk/6LslTHMsIuHR4sVFljggfxzKPajOeJZZ4GLzGF4gIvHLoZNKnSo0Oa+RrtBkwYehnWK1P1azBkKNOnSpkTFTOFE1xiu0aQs6BZtmlylSY0yWRzp9DJXyLHKVTa4MuDb8wz85vueh8c3fbuPpPYOrlRtBjLu0sSTzhvc7+85ZMmyzBXqFNmjIlY7VHgoGRZxuITDMpdYlljPXq8rihUxeKJUWVQs0mYPQ5Od59balS597Xy/2zREyWCvgKeWQfYGZRbE30iPu8KVkchd0biNK9bOc1VziyJdahhWcTDc1Kj+hG0Jr/7frkyeX3eFxjNMqsc+LSpssat8hpNZEA49HginIeM1XFGgITPtc9IVFoK+e6wVyLOGYUPiNwYirw1E8DsZNWFZ6TesbDBvqP99irjUKLJNTXbCk1eUvDk+FOyxghlip0NJFGrhiUYdieWIBlUW2OAGa0OVHM1RWf4G2m/T7U9P0J0/Nf55z1EQ5QtmSk5bTlgrCCN3yLPFTTa4zZasc2yySY51tshzXXw32JSTu8E6q+KRFxzs3ZATsM7HGN4nLzZ+7IryEyjmn8mWVN+R2oNZdqnTEs79yh3ptSIdPrvChh2N2vPtiE8Jlx2xNKJfgypdilR1KlpSYV247M1GeOqCiahLL7624X6Vpty0bTm5flTDvt4d/rQGNQU3hPcUqjrPNTP/faNtyunzuwhRXroIZrzTZ78i3Q6uq/qWuHKfBveV4YLwUZDXxMVY71GS7L6vz4WJP3riy+MnvhyIym22cYMpjR9wjX3JVtPqDNvCinhwN/Yr9+iIfh1R16/oM4ni3013yXBP75kmVbnZWsJ5Sc7ivqyC+bnL/CG2Rb0v26LXntjPjshdlteiJtoZ6a2q0ae5Jxx7OhvBHWto0JU3uC27wSmV3sgeWs9wpI72MKd1Dao4J6/CsCbD2o6yeixfh5QZyw6oPcrvQH55VOX98Nm4Iye/KtN8nYf6bq71v4XoA+HSFV4K8kb591jwCoeevXf5qsQvsTdy5sMZnx+Z9Sifp7cc7PYo68EeD7cd5uAo+1G/WEbbKXP/AgAA//8BAAD///u8HqIAAAMAAAAAAAD/tQAyAAAAAQAAAAAAAAAAAAAAAAAAAAC4Af+FsASNAA==\");\n}]]></style><style type=\"text/css\"><![CDATA[.shape {\n  shape-rendering: geometricPrecision;\n  stroke-linejoin: round;\n}\n.connection {\n  stroke-linecap: round;\n  stroke-linejoin: round;\n}\n.blend {\n  mix-blend-mode: multiply;\n  opacity: 0.5;\n}\n\n\t\t.d2-4025846587 .fill-N1{fill:#ECEDED;}\n\t\t.d2-4025846587 .fill-N2{fill:#676C7E;}\n\t\t.d2-4025846587 .fill-N3{fill:#9499AB;}\n\t\t.d2-4025846587 .fill-N4{fill:#CFD2DD;}\n\t\t.d2-4025846587 .fill-N5{fill:#DEE1EB;}\n\t\t.d2-4025846587 .fill-N6{fill:#EEF1F8;}\n\t\t.d2-4025846587 .fill-N7{fill:#151719;}\n\t\t.d2-4025846587 .fill-B1{fill:#717D86;}\n\t\t.d2-4025846587 .fill-B2{fill:#717D86;}\n\t\t.d2-4025846587 .fill-B3{fill:#ffff00;}\n\t\t.d2-4025846587 .fill-B4{fill:#151719;}\n\t\t.d2-4025846587 .fill-B5{fill:#151719;}\n\t\t.d2-4025846587 .fill-B6{fill:#151719;}\n\t\t.d2-4025846587 .fill-AA2{fill:#676C7E;}\n\t\t.d2-4025846587 .fill-AA4{fill:#CFD2DD;}\n\t\t.d2-4025846587 .fill-AA5{fill:#DEE1EB;}\n\t\t.d2-4025846587 .fill-AB4{fill:#CFD2DD;}\n\t\t.d2-4025846587 .fill-AB5{fill:#DEE1EB;}\n\t\t.d2-4025846587 .stroke-N1{stroke:#ECEDED;}\n\t\t.d2-4025846587 .stroke-N2{stroke:#676C7E;}\n\t\t.d2-4025846587 .stroke-N3{stroke:#9499AB;}\n\t\t.d2-4025846587 .stroke-N4{stroke:#CFD2DD;}\n\t\t.d2-4025846587 .stroke-N5{stroke:#DEE1EB;}\n\t\t.d2-4025846587 .stroke-N6{stroke:#EEF1F8;}\n\t\t.d2-4025846587 .stroke-N7{stroke:#151719;}\n\t\t.d2-4025846587 .stroke-B1{stroke:#717D86;}\n\t\t.d2-4025846587 .stroke-B2{stroke:#717D86;}\n\t\t.d2-4025846587 .stroke-B3{stroke:#ffff00;}\n\t\t.d2-4025846587 .stroke-B4{stroke:#151719;}\n\t\t.d2-4025846587 .stroke-B5{stroke:#151719;}\n\t\t.d2-4025846587 .stroke-B6{stroke:#151719;}\n\t\t.d2-4025846587 .stroke-AA2{stroke:#676C7E;}\n\t\t.d2-4025846587 .stroke-AA4{stroke:#CFD2DD;}\n\t\t.d2-4025846587 .stroke-AA5{stroke:#DEE1EB;}\n\t\t.d2-4025846587 .stroke-AB4{stroke:#CFD2DD;}\n\t\t.d2-4025846587 .stroke-AB5{stroke:#DEE1EB;}\n\t\t.d2-4025846587 .background-color-N1{background-color:#ECEDED;}\n\t\t.d2-4025846587 .background-color-N2{background-color:#676C7E;}\n\t\t.d2-4025846587 .background-color-N3{background-color:#9499AB;}\n\t\t.d2-4025846587 .background-color-N4{background-color:#CFD2DD;}\n\t\t.d2-4025846587 .background-color-N5{background-color:#DEE1EB;}\n\t\t.d2-4025846587 .background-color-N6{background-color:#EEF1F8;}\n\t\t.d2-4025846587 .background-color-N7{background-color:#151719;}\n\t\t.d2-4025846587 .background-color-B1{background-color:#717D86;}\n\t\t.d2-4025846587 .background-color-B2{background-color:#717D86;}\n\t\t.d2-4025846587 .background-color-B3{background-color:#ffff00;}\n\t\t.d2-4025846587 .background-color-B4{background-color:#151719;}\n\t\t.d2-4025846587 .background-color-B5{background-color:#151719;}\n\t\t.d2-4025846587 .background-color-B6{background-color:#151719;}\n\t\t.d2-4025846587 .background-color-AA2{background-color:#676C7E;}\n\t\t.d2-4025846587 .background-color-AA4{background-color:#CFD2DD;}\n\t\t.d2-4025846587 .background-color-AA5{background-color:#DEE1EB;}\n\t\t.d2-4025846587 .background-color-AB4{background-color:#CFD2DD;}\n\t\t.d2-4025846587 .background-color-AB5{background-color:#DEE1EB;}\n\t\t.d2-4025846587 .color-N1{color:#ECEDED;}\n\t\t.d2-4025846587 .color-N2{color:#676C7E;}\n\t\t.d2-4025846587 .color-N3{color:#9499AB;}\n\t\t.d2-4025846587 .color-N4{color:#CFD2DD;}\n\t\t.d2-4025846587 .color-N5{color:#DEE1EB;}\n\t\t.d2-4025846587 .color-N6{color:#EEF1F8;}\n\t\t.d2-4025846587 .color-N7{color:#151719;}\n\t\t.d2-4025846587 .color-B1{color:#717D86;}\n\t\t.d2-4025846587 .color-B2{color:#717D86;}\n\t\t.d2-4025846587 .color-B3{color:#ffff00;}\n\t\t.d2-4025846587 .color-B4{color:#151719;}\n\t\t.d2-4025846587 .color-B5{color:#151719;}\n\t\t.d2-4025846587 .color-B6{color:#151719;}\n\t\t.d2-4025846587 .color-AA2{color:#676C7E;}\n\t\t.d2-4025846587 .color-AA4{color:#CFD2DD;}\n\t\t.d2-4025846587 .color-AA5{color:#DEE1EB;}\n\t\t.d2-4025846587 .color-AB4{color:#CFD2DD;}\n\t\t.d2-4025846587 .color-AB5{color:#DEE1EB;}.appendix text.text{fill:#ECEDED}.md{--color-fg-default:#ECEDED;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#151719;--color-canvas-subtle:#EEF1F8;--color-border-default:#717D86;--color-border-muted:#717D86;--color-neutral-muted:#EEF1F8;--color-accent-fg:#717D86;--color-accent-emphasis:#717D86;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-B2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-B3{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B5{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B6{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-AA2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-AA5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-AB5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-darker);mix-blend-mode:lighten}.light-code{display: block}.dark-code{display: none}]]></style><g id=\"com\"><g class=\"shape\" ><rect x=\"161.000000\" y=\"12.000000\" width=\"394.000000\" height=\"522.000000\" class=\" stroke-B1 fill-B4\" style=\"stroke-width:2;\" /></g><text x=\"358.000000\" y=\"45.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:28px\">com</text></g><g id=\"org\"><g class=\"shape\" ><rect x=\"12.000000\" y=\"674.000000\" width=\"692.000000\" height=\"376.000000\" class=\" stroke-B1 fill-B4\" style=\"stroke-width:2;\" /></g><text x=\"358.000000\" y=\"707.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:28px\">org</text></g><g id=\"com.ch\"><g class=\"shape\" ><rect x=\"211.000000\" y=\"62.000000\" width=\"294.000000\" height=\"417.000000\" class=\" stroke-B1 fill-B5\" style=\"stroke-width:2;\" /></g><text x=\"358.000000\" y=\"91.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:24px\">ch</text></g><g id=\"org.lwjgl\"><g class=\"shape\" ><rect x=\"62.000000\" y=\"729.000000\" width=\"592.000000\" height=\"271.000000\" class=\" stroke-B1 fill-B5\" style=\"stroke-width:2;\" /></g><text x=\"358.000000\" y=\"758.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:24px\">lwjgl</text></g><g id=\"com.ch.Model\"><g class=\"shape\" ><rect x=\"278.000000\" y=\"363.000000\" width=\"160.000000\" height=\"66.000000\" fill=\"#26de81\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"358.000000\" y=\"401.500000\" fill=\"#151719\" class=\"text-mono-bold\" style=\"text-anchor:middle;font-size:16px\">Model</text></g><g id=\"org.lwjgl.opengl\"><g class=\"shape\" ><rect x=\"112.000000\" y=\"784.000000\" width=\"492.000000\" height=\"166.000000\" class=\" stroke-B1 fill-B6\" style=\"stroke-width:2;\" /></g><text x=\"358.000000\" y=\"809.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:20px\">opengl</text></g><g id=\"com.ch.voxel\"><g class=\"shape\" ><rect x=\"261.000000\" y=\"112.000000\" width=\"194.000000\" height=\"166.000000\" class=\" stroke-B1 fill-B6\" style=\"stroke-width:2;\" /></g><text x=\"358.000000\" y=\"137.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:20px\">voxel</text></g><g id=\"org.lwjgl.opengl.GL11\"><g class=\"shape\" ><rect x=\"162.000000\" y=\"834.000000\" width=\"83.000000\" height=\"66.000000\" rx=\"33.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:2;\" /></g><text x=\"203.500000\" y=\"872.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">GL11</text></g><g id=\"org.lwjgl.opengl.GL15\"><g class=\"shape\" ><rect x=\"265.000000\" y=\"834.000000\" width=\"83.000000\" height=\"66.000000\" rx=\"33.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:2;\" /></g><text x=\"306.500000\" y=\"872.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">GL15</text></g><g id=\"org.lwjgl.opengl.GL20\"><g class=\"shape\" ><rect x=\"368.000000\" y=\"834.000000\" width=\"83.000000\" height=\"66.000000\" rx=\"33.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:2;\" /></g><text x=\"409.500000\" y=\"872.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">GL20</text></g><g id=\"org.lwjgl.opengl.GL30\"><g class=\"shape\" ><rect x=\"471.000000\" y=\"834.000000\" width=\"83.000000\" height=\"66.000000\" rx=\"33.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:2;\" /></g><text x=\"512.500000\" y=\"872.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">GL30</text></g><g id=\"com.ch.voxel.Chunk\"><g class=\"shape\" ><rect x=\"311.000000\" y=\"162.000000\" width=\"94.000000\" height=\"66.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"358.000000\" y=\"200.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">Chunk</text></g><g id=\"(com.ch.Model -&gt; org.lwjgl.opengl.GL11)[0]\"><marker id=\"mk-558834944\" markerWidth=\"10.000000\" markerHeight=\"12.000000\" refX=\"7.000000\" refY=\"6.000000\" viewBox=\"0.000000 0.000000 10.000000 12.000000\" orient=\"auto\" markerUnits=\"userSpaceOnUse\"> <polygon points=\"0.000000,0.000000 10.000000,6.000000 0.000000,12.000000\" fill=\"#26de81\" class=\"connection\" stroke-width=\"2\" /> </marker><path d=\"M 310.000000 430.000000 L 310.000000 569.000000 S 310.000000 579.000000 300.000000 579.000000 L 213.500000 579.000000 S 203.500000 579.000000 203.500000 589.000000 L 203.500000 830.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-4025846587)\" /><text x=\"238.000000\" y=\"824.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"(com.ch.Model -&gt; org.lwjgl.opengl.GL15)[0]\"><path d=\"M 342.000000 430.000000 L 342.000000 619.000000 S 342.000000 629.000000 332.000000 629.000000 L 316.500000 629.000000 S 306.500000 629.000000 306.500000 639.000000 L 306.500000 830.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-4025846587)\" /><text x=\"341.000000\" y=\"824.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"(com.ch.Model -&gt; org.lwjgl.opengl.GL20)[0]\"><path d=\"M 374.000000 430.000000 L 374.000000 619.000000 S 374.000000 629.000000 384.000000 629.000000 L 399.500000 629.000000 S 409.500000 629.000000 409.500000 639.000000 L 409.500000 830.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-4025846587)\" /><text x=\"444.000000\" y=\"824.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"(com.ch.Model -&gt; org.lwjgl.opengl.GL30)[0]\"><path d=\"M 406.000000 430.000000 L 406.000000 569.000000 S 406.000000 579.000000 416.000000 579.000000 L 502.500000 579.000000 S 512.500000 579.000000 512.500000 589.000000 L 512.500000 830.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-4025846587)\" /><text x=\"547.000000\" y=\"824.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"com.ch.(voxel.Chunk -&gt; Model)[0]\"><path d=\"M 331.333008 229.000000 L 331.333008 360.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-4025846587)\" /><text x=\"365.000000\" y=\"353.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"com.ch.(voxel.Chunk -&gt; Model)[1]\"><path d=\"M 384.665985 229.000000 L 384.665985 360.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-4025846587)\" /></g><mask id=\"d2-4025846587\" maskUnits=\"userSpaceOnUse\" x=\"11\" y=\"11\" width=\"694\" height=\"1040\">\n<rect x=\"11\" y=\"11\" width=\"694\" height=\"1040\" fill=\"white\"></rect>\n<rect x=\"333.500000\" y=\"17.000000\" width=\"49\" height=\"36\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"339.000000\" y=\"679.000000\" width=\"38\" height=\"36\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"347.000000\" y=\"67.000000\" width=\"22\" height=\"31\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"334.500000\" y=\"734.000000\" width=\"47\" height=\"31\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"334.000000\" y=\"385.500000\" width=\"48\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"329.000000\" y=\"789.000000\" width=\"58\" height=\"26\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"335.500000\" y=\"117.000000\" width=\"45\" height=\"26\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"184.500000\" y=\"856.500000\" width=\"38\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"287.500000\" y=\"856.500000\" width=\"38\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"390.500000\" y=\"856.500000\" width=\"38\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"493.500000\" y=\"856.500000\" width=\"38\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"333.500000\" y=\"184.500000\" width=\"49\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n</mask></svg></svg>\n"
+        },
+        "items": [
+          {
+            "id": "a37230eb-c7f4-ccb8-b644-61361c148770",
+            "ancestors": [],
+            "type": "function",
+            "description": "Is used for rendering 3D models in a graphics application. It takes care of binding vertex arrays and storing data and indices for rendering. The class provides methods to enable and disable vertex attribs, get the VAO ID and size, and load data from an array and indices for rendering.",
+            "name": "Model",
+            "location": {
+              "start": 8,
+              "insert": 8,
+              "offset": " ",
+              "indent": 0,
+              "comment": null
+            },
+            "item_type": "class",
+            "length": 73,
+            "docLength": null
+          },
+          {
+            "id": "fafa3009-ee4e-22a2-a644-fab996ee920b",
+            "ancestors": [
+              "a37230eb-c7f4-ccb8-b644-61361c148770"
+            ],
+            "type": "function",
+            "description": "Binds a vertex array object, enables vertex attributes, draws a collection of triangles using `glDrawElements`, and disables the vertex attributes again.",
+            "params": [],
+            "usage": {
+              "language": "java",
+              "code": "Model model = Model.load(vertices, indices);\nmodel.draw();\n",
+              "description": ""
+            },
+            "name": "draw",
+            "location": {
+              "start": 17,
+              "insert": 17,
+              "offset": "\t",
+              "indent": 1,
+              "comment": null
+            },
+            "item_type": "method",
+            "length": 10,
+            "docLength": null
+          },
+          {
+            "id": "9ce697b5-cb5a-f587-144d-938f0edd580c",
+            "ancestors": [
+              "a37230eb-c7f4-ccb8-b644-61361c148770"
+            ],
+            "type": "function",
+            "description": "Enables two vertex attributes in a 3D graphics context using OpenGL API.",
+            "params": [],
+            "name": "enableAttribs",
+            "location": {
+              "start": 28,
+              "insert": 28,
+              "offset": "\t",
+              "indent": 1,
+              "comment": null
+            },
+            "item_type": "method",
+            "length": 4,
+            "docLength": null
+          },
+          {
+            "id": "ccfe301c-5aaa-bea7-e442-78381b686d02",
+            "ancestors": [
+              "a37230eb-c7f4-ccb8-b644-61361c148770"
+            ],
+            "type": "function",
+            "description": "Disables vertex attribute arrays for both attributes, GL_VERTEX_ARRAY_BUFFER and GL_NORMAL_ARRAY_BUFFER, using `glDisableVertexAttribArray`.",
+            "params": [],
+            "name": "disableAttribs",
+            "location": {
+              "start": 33,
+              "insert": 33,
+              "offset": "\t",
+              "indent": 1,
+              "comment": null
+            },
+            "item_type": "method",
+            "length": 4,
+            "docLength": null
+          },
+          {
+            "id": "8f192c7f-a364-b78c-774d-fca48beaa67c",
+            "ancestors": [
+              "a37230eb-c7f4-ccb8-b644-61361c148770"
+            ],
+            "type": "function",
+            "description": "Returns the value of the variable `vao`.",
+            "params": [],
+            "returns": {
+              "type_name": "int",
+              "description": "the value of the `vao` field, which is an integer.",
+              "complex_type": false
+            },
+            "usage": {
+              "language": "java",
+              "code": "Model model = Model.load(vertices, indices); // load the model from vertices and indices array\nint vao = model.getVAO();  // get VAO from loaded model\nGL30.glBindVertexArray(vao);  // bind VAO to draw\n",
+              "description": ""
+            },
+            "name": "getVAO",
+            "location": {
+              "start": 38,
+              "insert": 38,
+              "offset": "\t",
+              "indent": 1,
+              "comment": null
+            },
+            "item_type": "method",
+            "length": 3,
+            "docLength": null
+          },
+          {
+            "id": "b844d919-ecd4-4883-b24d-650f8604faaa",
+            "ancestors": [
+              "a37230eb-c7f4-ccb8-b644-61361c148770"
+            ],
+            "type": "function",
+            "description": "Returns the current size of an object's storage.",
+            "params": [],
+            "returns": {
+              "type_name": "int",
+              "description": "the value of the `size` field.",
+              "complex_type": false
+            },
+            "usage": {
+              "language": "java",
+              "code": "Model model = Model.load(vertices, indices);\nint size = model.getSize();\n",
+              "description": ""
+            },
+            "name": "getSize",
+            "location": {
+              "start": 42,
+              "insert": 42,
+              "offset": "\t",
+              "indent": 1,
+              "comment": null
+            },
+            "item_type": "method",
+            "length": 3,
+            "docLength": null
+          },
+          {
+            "id": "39b17ea2-a08c-e298-7e4a-ec9df3e02bdd",
+            "ancestors": [
+              "a37230eb-c7f4-ccb8-b644-61361c148770"
+            ],
+            "type": "function",
+            "description": "Loads a 3D model into memory by creating a Vertex Array Object (VAO), storing index data, and then binding the VAO to the GPU for rendering.",
+            "params": [
+              {
+                "name": "vertices",
+                "type_name": "float[]",
+                "description": "3D model's geometry as a set of floating-point coordinates, which are stored in an array and passed to the `storeData()` method for storage in the Vertex Array Object (VAO).",
+                "complex_type": false
+              },
+              {
+                "name": "indices",
+                "type_name": "int[]",
+                "description": "3D model's vertex array object (VAO) indices, which are used to bind the model's vertices and indices to the appropriate buffers for rendering.",
+                "complex_type": false
+              }
+            ],
+            "returns": {
+              "type_name": "Model",
+              "description": "a `Model` object representing the loaded 3D model.",
+              "complex_type": false
+            },
+            "name": "load",
+            "location": {
+              "start": 46,
+              "insert": 46,
+              "offset": "\t",
+              "indent": 1,
+              "comment": null
+            },
+            "item_type": "method",
+            "length": 8,
+            "docLength": null
+          },
+          {
+            "id": "f8c12a7c-1748-0ea1-4e4e-85d0a1bfe89f",
+            "ancestors": [
+              "a37230eb-c7f4-ccb8-b644-61361c148770"
+            ],
+            "type": "function",
+            "description": "Creates a new vertex array object (VAO) and binds it to the current GL context, allowing for efficient rendering of 3D models.",
+            "params": [],
+            "returns": {
+              "type_name": "int",
+              "description": "an integer value representing a valid vertex array object (VAO) handle.",
+              "complex_type": false
+            },
+            "name": "createVAO",
+            "location": {
+              "start": 55,
+              "insert": 55,
+              "offset": "\t",
+              "indent": 1,
+              "comment": null
+            },
+            "item_type": "method",
+            "length": 5,
+            "docLength": null
+          },
+          {
+            "id": "e5657bfd-6afd-4dbf-a64d-88f75eaf2c95",
+            "ancestors": [
+              "a37230eb-c7f4-ccb8-b644-61361c148770"
+            ],
+            "type": "function",
+            "description": "Generates a vertex buffer object (VBO), binds it, and stores data in it using the `GL15.glBufferData()` method. It then sets up vertex attributers for the data.",
+            "params": [
+              {
+                "name": "attrib",
+                "type_name": "int",
+                "description": "2D vertex attribute index that contains the data to be stored in the VBO.",
+                "complex_type": false
+              },
+              {
+                "name": "data",
+                "type_name": "float[]",
+                "description": "3D data to be stored in the vertex buffer object (VBO).",
+                "complex_type": false
+              }
+            ],
+            "name": "storeData",
+            "location": {
+              "start": 61,
+              "insert": 61,
+              "offset": "\t",
+              "indent": 1,
+              "comment": null
+            },
+            "item_type": "method",
+            "length": 8,
+            "docLength": null
+          },
+          {
+            "id": "39eb62ee-c06c-828c-8541-057ec79abcf0",
+            "ancestors": [
+              "a37230eb-c7f4-ccb8-b644-61361c148770"
+            ],
+            "type": "function",
+            "description": "Generates a new buffer for storing indices, binds it, and stores the input array of indices in it using the `GL15.glBufferData()` method.",
+            "params": [
+              {
+                "name": "indices",
+                "type_name": "int[]",
+                "description": "3D model's indices that are to be stored in the element array buffer.",
+                "complex_type": false
+              }
+            ],
+            "name": "storeIndices",
+            "location": {
+              "start": 70,
+              "insert": 70,
+              "offset": "\t",
+              "indent": 1,
+              "comment": null
+            },
+            "item_type": "method",
+            "length": 5,
+            "docLength": null
+          },
+          {
+            "id": "1f8c4d30-a808-56b1-8b42-938d904d024b",
+            "ancestors": [
+              "a37230eb-c7f4-ccb8-b644-61361c148770"
+            ],
+            "type": "function",
+            "description": "Disables the Vertex Array Object (VAO) bound to it by passing a value of 0 to the `glBindVertexArray` method.",
+            "params": [],
+            "name": "unbindVAO",
+            "location": {
+              "start": 76,
+              "insert": 76,
+              "offset": "\t",
+              "indent": 1,
+              "comment": null
+            },
+            "item_type": "method",
+            "length": 3,
+            "docLength": null
+          }
+        ]
+      }
+    }
   }
 ]
