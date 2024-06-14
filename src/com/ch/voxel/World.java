@@ -6,6 +6,13 @@ import com.ch.Camera;
 import com.ch.Shader;
 
 
+/**
+ * Is responsible for managing the rendering of chunks in a Minecraft-like game. It
+ * has several methods and fields related to chunk rendering, including `render`,
+ * `chunks`, and `x`, `y`, and `z`. The `render` method takes a shader and camera
+ * object as parameters and renders each chunk in the world using the shader's uniforms
+ * to set the color of the chunk based on its position.
+ */
 public class World {
 
 	private int x, y, z; // in chunks
@@ -21,6 +28,11 @@ public class World {
 		gen();
 	}
 	
+	/**
+	 * Generates a 3D grid of Chunk objects, each representing a specific block in the
+	 * game world, by recursively calling itself for each chunk position within a fixed
+	 * size area.
+	 */
 	private void gen() {
 		for (int i = 0; i < W; i++)
 			for (int j = 0; j < H; j++)
@@ -31,6 +43,19 @@ public class World {
 				}
 	}
 
+	/**
+	 * Updates the position of the `World` object based on the difference between the
+	 * current position and the desired position, and then generates a new chunk if necessary.
+	 * 
+	 * @param x 2D coordinates of the chunk being updated, and is used to determine which
+	 * chunks are affected by the update and need to be generated or re-generated.
+	 * 
+	 * @param y 2D coordinate of the chunk's position in the world, which is used to
+	 * determine the appropriate chunk to update based on the `x` and `z` parameters.
+	 * 
+	 * @param z 3D position of the chunk to update, and it is used to determine which
+	 * chunks need to be updated based on their distance from the player's position.
+	 */
 	public void updatePos(float x, float y, float z) {
 		final int _x = (int) (x / Chunk.CHUNK_SIZE);
 		final int _y = 0;//(int) (y / Chunk.CHUNK_SIZE);
@@ -215,6 +240,27 @@ public class World {
 		/* welp... this logic sure looks aweful */
 	}
 
+	/**
+	 * Renders a 3D scene using a shader and a camera. It iterates over chunks of the
+	 * scene, applying transformations to the chunk's model matrix and then drawing the
+	 * chunk using the shader.
+	 * 
+	 * @param s 3D rendering shader that is being applied to the 2D graphics, and it is
+	 * used by the function to set the uniform values for the shader using the `uniformf`
+	 * method.
+	 * 
+	 * 	- `s` is a Shader object that represents a shader program.
+	 * 	- It has various uniforms and attributes that can be modified during rendering.
+	 * 	- The shader program can be used to render 3D graphics by setting its uniforms
+	 * and attributes and then drawing the 3D objects using the `draw()` method.
+	 * 
+	 * @param c 3D camera used to render the scene, and it is used to compute the
+	 * view-projection matrix that is applied to the 3D models before they are drawn.
+	 * 
+	 * 	- `Camera c`: This is an instance of a camera class, representing the camera's
+	 * perspective on the 3D scene. It has various properties such as the viewport size,
+	 * projection matrix, and modelview matrix.
+	 */
 	public void render(Shader s, Camera c) {
 		for (int i = 0; i < W; i++)
 			for (int j = 0; j < H; j++)

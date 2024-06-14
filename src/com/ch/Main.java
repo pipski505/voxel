@@ -12,8 +12,23 @@ import org.lwjgl.opengl.PixelFormat;
 import com.ch.math.Vector3f;
 import com.ch.voxel.World;
 
+/**
+ * Of the project is responsible for managing the rendering of a 3D environment using
+ * Java's GLFW library and Android's OpenGL ES 2.0 API. It creates a camera, loads a
+ * shader, and initializes a world object to render 3D objects in the scene. The class
+ * also handles user input, updates the position of the camera, and renders the scene
+ * using the shader and a texture. The loop function runs the rendering process at a
+ * frame rate of approximately 60 frames per second.
+ */
 public class Main {
 	
+	/**
+	 * Initializes display and graphics libraries, enters an event-processing loop, and
+	 * exits with a return value of 0.
+	 * 
+	 * @param args 0 or more command line arguments passed to the program when it is run,
+	 * which are then ignored in this particular implementation of the `main` method.
+	 */
 	public static void main(String[] args) {
 		
 		initDisplay();
@@ -30,6 +45,10 @@ public class Main {
 //	private static Chunk[][][] ch;
 	private static World w;
 	
+	/**
+	 * Initializes the graphics display, setting the resolution to 1920x1080, enabling
+	 * vsync, and printing the GL version string.
+	 */
 	private static void initDisplay() {
 		try {
 			Display.setDisplayMode(new DisplayMode(1920, 1080));
@@ -41,6 +60,11 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Initializes and sets up various GL elements, including clearing the color buffer,
+	 * enabling cull face and depth testing, creating a camera and shader, loading a
+	 * texture, and setting up a world object.
+	 */
 	private static void initGL() {
 		
 		GL11.glClearColor(0.1f, 0.7f, 1f, 1);
@@ -83,6 +107,11 @@ public class Main {
 		
 	}
 	
+	/**
+	 * Continuously runs a loop until the `Display.isCloseRequested()` or
+	 * `Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)` is triggered, updating the display title
+	 * and rendering the scene using OpenGL.
+	 */
 	private static void loop() {
 		
 		Timer.init();
@@ -105,11 +134,23 @@ public class Main {
 		
 	}
 	
+	/**
+	 * Updates the position of an entity based on input and transformation data, using
+	 * the `processInput` method to update the entity's state and the `updatePos` method
+	 * to set the entity's position.
+	 * 
+	 * @param dt delta time, which is used to update the position of the entity in the
+	 * game world.
+	 */
 	private static void update(float dt) {
 		c.processInput(dt, 5, .3f);
 		w.updatePos(c.getTransform().getPos().getX(), c.getTransform().getPos().getY(), c.getTransform().getPos().getZ());
 	}
 
+	/**
+	 * Renders a 3D scene using a shader and models. It enables and disables attributs
+	 * for the model, binds the shader, and draws the models.
+	 */
 	private static void render() {
 		
 //		Model.enableAttribs();
@@ -131,6 +172,12 @@ public class Main {
 //		Model.disableAttribs();
 	}
 	
+	/**
+	 * Terminates the Java application with a specified exit status (0-255).
+	 * 
+	 * @param status exit code for the program, which System.exit() will use to terminate
+	 * the program.
+	 */
 	private static void exit(int status) {
 		System.exit(status);
 	}
