@@ -13,20 +13,21 @@ import com.ch.math.Vector3f;
 import com.ch.voxel.World;
 
 /**
- * Is responsible for creating and managing a 3D scene using the Java 3D API. It sets
- * up the display, loads a shader, and creates a camera and world objects. It also
- * defines a loop that updates the scene and renders it to the screen. The update
- * function processes input and updates the position of the camera, while the render
- * function draws the scene using the Model class.
+ * Of the project is responsible for managing the rendering of a 3D environment using
+ * Java's GLFW library and Android's OpenGL ES 2.0 API. It creates a camera, loads a
+ * shader, and initializes a world object to render 3D objects in the scene. The class
+ * also handles user input, updates the position of the camera, and renders the scene
+ * using the shader and a texture. The loop function runs the rendering process at a
+ * frame rate of approximately 60 frames per second.
  */
 public class Main {
 	
 	/**
-	 * Initializes display and GL resources, enters an endless loop to render and handle
-	 * user input, and exits with a successful status code.
+	 * Initializes display and graphics libraries, enters an event-processing loop, and
+	 * exits with a return value of 0.
 	 * 
-	 * @param args program's command-line arguments, which are not utilized in this code
-	 * snippet.
+	 * @param args 0 or more command line arguments passed to the program when it is run,
+	 * which are then ignored in this particular implementation of the `main` method.
 	 */
 	public static void main(String[] args) {
 		
@@ -45,9 +46,8 @@ public class Main {
 	private static World w;
 	
 	/**
-	 * Sets up a display mode with a resolution of 1920x1080, creates a GL context with
-	 * forward compatibility and VSync enabled, and prints the version number of GL using
-	 * `glGetString()`.
+	 * Initializes the graphics display, setting the resolution to 1920x1080, enabling
+	 * vsync, and printing the GL version string.
 	 */
 	private static void initDisplay() {
 		try {
@@ -61,8 +61,9 @@ public class Main {
 	}
 	
 	/**
-	 * Initializes the GL context, sets up the camera and shader, loads a texture, and
-	 * creates a world object.
+	 * Initializes and sets up various GL elements, including clearing the color buffer,
+	 * enabling cull face and depth testing, creating a camera and shader, loading a
+	 * texture, and setting up a world object.
 	 */
 	private static void initGL() {
 		
@@ -107,8 +108,9 @@ public class Main {
 	}
 	
 	/**
-	 * Continuously runs a loop of rendering, updating the display title and clearing the
-	 * color and depth buffers.
+	 * Continuously runs a loop until the `Display.isCloseRequested()` or
+	 * `Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)` is triggered, updating the display title
+	 * and rendering the scene using OpenGL.
 	 */
 	private static void loop() {
 		
@@ -133,11 +135,12 @@ public class Main {
 	}
 	
 	/**
-	 * Updates the position of an entity (`w`) based on input and transform parameters,
-	 * using the `processInput` method to handle input and the `updatePos` method to set
-	 * the new position.
+	 * Updates the position of an entity based on input and transformation data, using
+	 * the `processInput` method to update the entity's state and the `updatePos` method
+	 * to set the entity's position.
 	 * 
-	 * @param dt delta time, which is used to update the position of the entity in the world.
+	 * @param dt delta time, which is used to update the position of the entity in the
+	 * game world.
 	 */
 	private static void update(float dt) {
 		c.processInput(dt, 5, .3f);
@@ -145,8 +148,8 @@ public class Main {
 	}
 
 	/**
-	 * Renders a 3D model using the provided view and camera matrices. It sets up the
-	 * necessary uniforms and matrices, and then draws the model using the `draw()` method.
+	 * Renders a 3D scene using a shader and models. It enables and disables attributs
+	 * for the model, binds the shader, and draws the models.
 	 */
 	private static void render() {
 		
@@ -170,10 +173,10 @@ public class Main {
 	}
 	
 	/**
-	 * Terminates the Java process with the specified status code.
+	 * Terminates the Java application with a specified exit status (0-255).
 	 * 
-	 * @param status value to be passed to the `System.exit()` method, which terminates
-	 * the application's execution.
+	 * @param status exit code for the program, which System.exit() will use to terminate
+	 * the program.
 	 */
 	private static void exit(int status) {
 		System.exit(status);
