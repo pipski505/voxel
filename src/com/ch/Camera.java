@@ -20,7 +20,6 @@ public abstract class Camera {
 		if (viewProjectionMat4 == null || transform.hasChanged()) {
 			calculateViewMatrix();
 		}
-
 		return viewProjectionMat4;
 	}
 
