@@ -2489,13 +2489,17 @@
     "path": "src/com/ch/Util.java",
     "content": {
       "structured": {
-        "description": "Several static utility methods for working with buffers and lists. Util methods include creating FloatBuffer, IntBuffer, and ByteBuffer objects from arrays of data, as well as flipping and reversing these buffers. Other methods convert lists to arrays or vice versa, depending on the type of elements in question. The code also includes a method for removing empty strings from an array, as well as methods for converting integers, floats, and lists of these types to arrays.",
+        "description": "Utility classes and methods that create various types of buffers using the LWJGL library, and provides methods for manipulating arrays and lists. It creates float, int, and byte buffers from specified sizes or values, and also provides methods to flip these buffers. Additionally, it contains methods to convert between array and list data structures, including removing empty strings from an array and converting integer and float lists to arrays.",
+        "diagram": {
+          "gviz": "digraph G {\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"]\n    \n    subgraph cluster_1 {\n        label=\"ch\"\n        color=\"#33363A\"\n        Chunk []\n    }\n    subgraph cluster_main {\n        // style=filled\n        color=\"#00000000\"\n        Util [] [fontsize=\"20pt\",style=filled,color=\"#26de81\",shape=square, fontname=\"Courier New\"]\n        label = \"\"\n    }\n    ByteBuffer [label=\"java.nio.ByteBuffer\", style=\"rounded,filled\"]\n    ArrayList [label=\"java.util.ArrayList\", style=\"rounded,filled\"]\n    List [label=\"java.util.List\", style=\"rounded,filled\"]\n    BufferUtils [label=\"org.lwjgl.BufferUtils\", style=\"rounded,filled\"]\n    IntBuffer [label=\"java.nio.IntBuffer\", style=\"rounded,filled\"]\n    FloatBuffer [label=\"java.nio.FloatBuffer\", style=\"rounded,filled\"]\n    Util -> ArrayList [style=\"dashed\"]\n    Util -> IntBuffer [penwidth=2]\n    Chunk -> Util [style=\"dashed\"]\n    Util -> FloatBuffer [penwidth=2]\n    Util -> List [style=\"dashed\"]\n    Util -> ByteBuffer [penwidth=1]\n    Util -> ByteBuffer [style=\"dashed\"]\n    Util -> IntBuffer [style=\"dashed\"]\n    Util -> FloatBuffer [style=\"dashed\"]\n    Util -> BufferUtils [style=\"dashed\"]\n}\n",
+          "d2": "<?xml version=\"1.0\" encoding=\"utf-8\"?><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" d2Version=\"v0.6.5\" preserveAspectRatio=\"xMinYMin meet\" viewBox=\"0 0 1383 1125\"><svg id=\"d2-svg\" class=\"d2-541107315\" width=\"1383\" height=\"1125\" viewBox=\"11 11 1383 1125\"><rect x=\"11.000000\" y=\"11.000000\" width=\"1383.000000\" height=\"1125.000000\" rx=\"0.000000\" fill=\"#151719\" stroke-width=\"0\" /><style type=\"text/css\"><![CDATA[\n.d2-541107315 .text {\n\tfont-family: \"d2-541107315-font-regular\";\n}\n@font-face {\n\tfont-family: d2-541107315-font-regular;\n\tsrc: url(\"data:application/font-woff;base64,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\");\n}\n.d2-541107315 .text-italic {\n\tfont-family: \"d2-541107315-font-italic\";\n}\n@font-face {\n\tfont-family: d2-541107315-font-italic;\n\tsrc: url(\"data:application/font-woff;base64,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\");\n}\n.d2-541107315 .text-mono {\n\tfont-family: \"d2-541107315-font-mono\";\n}\n@font-face {\n\tfont-family: d2-541107315-font-mono;\n\tsrc: url(\"data:application/font-woff;base64,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\");\n}\n.d2-541107315 .text-mono-bold {\n\tfont-family: \"d2-541107315-font-mono-bold\";\n}\n@font-face {\n\tfont-family: d2-541107315-font-mono-bold;\n\tsrc: url(\"data:application/font-woff;base64,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\");\n}]]></style><style type=\"text/css\"><![CDATA[.shape {\n  shape-rendering: geometricPrecision;\n  stroke-linejoin: round;\n}\n.connection {\n  stroke-linecap: round;\n  stroke-linejoin: round;\n}\n.blend {\n  mix-blend-mode: multiply;\n  opacity: 0.5;\n}\n\n\t\t.d2-541107315 .fill-N1{fill:#ECEDED;}\n\t\t.d2-541107315 .fill-N2{fill:#676C7E;}\n\t\t.d2-541107315 .fill-N3{fill:#9499AB;}\n\t\t.d2-541107315 .fill-N4{fill:#CFD2DD;}\n\t\t.d2-541107315 .fill-N5{fill:#DEE1EB;}\n\t\t.d2-541107315 .fill-N6{fill:#EEF1F8;}\n\t\t.d2-541107315 .fill-N7{fill:#151719;}\n\t\t.d2-541107315 .fill-B1{fill:#717D86;}\n\t\t.d2-541107315 .fill-B2{fill:#717D86;}\n\t\t.d2-541107315 .fill-B3{fill:#ffff00;}\n\t\t.d2-541107315 .fill-B4{fill:#151719;}\n\t\t.d2-541107315 .fill-B5{fill:#151719;}\n\t\t.d2-541107315 .fill-B6{fill:#151719;}\n\t\t.d2-541107315 .fill-AA2{fill:#ECEDED;}\n\t\t.d2-541107315 .fill-AA4{fill:#CFD2DD;}\n\t\t.d2-541107315 .fill-AA5{fill:#DEE1EB;}\n\t\t.d2-541107315 .fill-AB4{fill:#CFD2DD;}\n\t\t.d2-541107315 .fill-AB5{fill:#DEE1EB;}\n\t\t.d2-541107315 .stroke-N1{stroke:#ECEDED;}\n\t\t.d2-541107315 .stroke-N2{stroke:#676C7E;}\n\t\t.d2-541107315 .stroke-N3{stroke:#9499AB;}\n\t\t.d2-541107315 .stroke-N4{stroke:#CFD2DD;}\n\t\t.d2-541107315 .stroke-N5{stroke:#DEE1EB;}\n\t\t.d2-541107315 .stroke-N6{stroke:#EEF1F8;}\n\t\t.d2-541107315 .stroke-N7{stroke:#151719;}\n\t\t.d2-541107315 .stroke-B1{stroke:#717D86;}\n\t\t.d2-541107315 .stroke-B2{stroke:#717D86;}\n\t\t.d2-541107315 .stroke-B3{stroke:#ffff00;}\n\t\t.d2-541107315 .stroke-B4{stroke:#151719;}\n\t\t.d2-541107315 .stroke-B5{stroke:#151719;}\n\t\t.d2-541107315 .stroke-B6{stroke:#151719;}\n\t\t.d2-541107315 .stroke-AA2{stroke:#ECEDED;}\n\t\t.d2-541107315 .stroke-AA4{stroke:#CFD2DD;}\n\t\t.d2-541107315 .stroke-AA5{stroke:#DEE1EB;}\n\t\t.d2-541107315 .stroke-AB4{stroke:#CFD2DD;}\n\t\t.d2-541107315 .stroke-AB5{stroke:#DEE1EB;}\n\t\t.d2-541107315 .background-color-N1{background-color:#ECEDED;}\n\t\t.d2-541107315 .background-color-N2{background-color:#676C7E;}\n\t\t.d2-541107315 .background-color-N3{background-color:#9499AB;}\n\t\t.d2-541107315 .background-color-N4{background-color:#CFD2DD;}\n\t\t.d2-541107315 .background-color-N5{background-color:#DEE1EB;}\n\t\t.d2-541107315 .background-color-N6{background-color:#EEF1F8;}\n\t\t.d2-541107315 .background-color-N7{background-color:#151719;}\n\t\t.d2-541107315 .background-color-B1{background-color:#717D86;}\n\t\t.d2-541107315 .background-color-B2{background-color:#717D86;}\n\t\t.d2-541107315 .background-color-B3{background-color:#ffff00;}\n\t\t.d2-541107315 .background-color-B4{background-color:#151719;}\n\t\t.d2-541107315 .background-color-B5{background-color:#151719;}\n\t\t.d2-541107315 .background-color-B6{background-color:#151719;}\n\t\t.d2-541107315 .background-color-AA2{background-color:#ECEDED;}\n\t\t.d2-541107315 .background-color-AA4{background-color:#CFD2DD;}\n\t\t.d2-541107315 .background-color-AA5{background-color:#DEE1EB;}\n\t\t.d2-541107315 .background-color-AB4{background-color:#CFD2DD;}\n\t\t.d2-541107315 .background-color-AB5{background-color:#DEE1EB;}\n\t\t.d2-541107315 .color-N1{color:#ECEDED;}\n\t\t.d2-541107315 .color-N2{color:#676C7E;}\n\t\t.d2-541107315 .color-N3{color:#9499AB;}\n\t\t.d2-541107315 .color-N4{color:#CFD2DD;}\n\t\t.d2-541107315 .color-N5{color:#DEE1EB;}\n\t\t.d2-541107315 .color-N6{color:#EEF1F8;}\n\t\t.d2-541107315 .color-N7{color:#151719;}\n\t\t.d2-541107315 .color-B1{color:#717D86;}\n\t\t.d2-541107315 .color-B2{color:#717D86;}\n\t\t.d2-541107315 .color-B3{color:#ffff00;}\n\t\t.d2-541107315 .color-B4{color:#151719;}\n\t\t.d2-541107315 .color-B5{color:#151719;}\n\t\t.d2-541107315 .color-B6{color:#151719;}\n\t\t.d2-541107315 .color-AA2{color:#ECEDED;}\n\t\t.d2-541107315 .color-AA4{color:#CFD2DD;}\n\t\t.d2-541107315 .color-AA5{color:#DEE1EB;}\n\t\t.d2-541107315 .color-AB4{color:#CFD2DD;}\n\t\t.d2-541107315 .color-AB5{color:#DEE1EB;}.appendix text.text{fill:#ECEDED}.md{--color-fg-default:#ECEDED;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#151719;--color-canvas-subtle:#EEF1F8;--color-border-default:#717D86;--color-border-muted:#717D86;--color-neutral-muted:#EEF1F8;--color-accent-fg:#717D86;--color-accent-emphasis:#717D86;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-B2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-B3{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B5{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B6{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-AA2{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AA4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-AA5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-AB5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-darker);mix-blend-mode:lighten}.light-code{display: block}.dark-code{display: none}]]></style><g id=\"com\"><g class=\"shape\" ><rect x=\"492.000000\" y=\"12.000000\" width=\"560.000000\" height=\"512.000000\" class=\" stroke-B1 fill-B4\" style=\"stroke-width:2;\" /></g><text x=\"772.000000\" y=\"45.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:28px\">com</text></g><g id=\"java\"><g class=\"shape\" ><rect x=\"12.000000\" y=\"864.000000\" width=\"1012.000000\" height=\"271.000000\" class=\" stroke-B1 fill-B4\" style=\"stroke-width:2;\" /></g><text x=\"518.000000\" y=\"897.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:28px\">java</text></g><g id=\"org\"><g class=\"shape\" ><rect x=\"1044.000000\" y=\"864.000000\" width=\"349.000000\" height=\"271.000000\" class=\" stroke-B1 fill-B4\" style=\"stroke-width:2;\" /></g><text x=\"1218.500000\" y=\"897.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:28px\">org</text></g><g id=\"com.ch\"><g class=\"shape\" ><rect x=\"542.000000\" y=\"62.000000\" width=\"460.000000\" height=\"407.000000\" class=\" stroke-B1 fill-B5\" style=\"stroke-width:2;\" /></g><text x=\"772.000000\" y=\"91.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:24px\">ch</text></g><g id=\"java.util\"><g class=\"shape\" ><rect x=\"62.000000\" y=\"919.000000\" width=\"333.000000\" height=\"166.000000\" class=\" stroke-B1 fill-B5\" style=\"stroke-width:2;\" /></g><text x=\"228.500000\" y=\"948.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:24px\">util</text></g><g id=\"java.nio\"><g class=\"shape\" ><rect x=\"415.000000\" y=\"919.000000\" width=\"559.000000\" height=\"166.000000\" class=\" stroke-B1 fill-B5\" style=\"stroke-width:2;\" /></g><text x=\"694.500000\" y=\"948.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:24px\">nio</text></g><g id=\"org.lwjgl\"><g class=\"shape\" ><rect x=\"1094.000000\" y=\"919.000000\" width=\"249.000000\" height=\"166.000000\" class=\" stroke-B1 fill-B5\" style=\"stroke-width:2;\" /></g><text x=\"1218.500000\" y=\"948.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:24px\">lwjgl</text></g><g id=\"com.ch.Util\"><g class=\"shape\" ><rect x=\"592.000000\" y=\"353.000000\" width=\"360.000000\" height=\"66.000000\" fill=\"#26de81\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"772.000000\" y=\"391.500000\" fill=\"#151719\" class=\"text-mono-bold\" style=\"text-anchor:middle;font-size:16px\">Util</text></g><g id=\"java.util.List\"><g class=\"shape\" ><rect x=\"112.000000\" y=\"969.000000\" width=\"82.000000\" height=\"66.000000\" rx=\"33.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:2;\" /></g><text x=\"153.000000\" y=\"1007.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">List</text></g><g id=\"java.nio.ByteBuffer\"><g class=\"shape\" ><rect x=\"465.000000\" y=\"969.000000\" width=\"140.000000\" height=\"66.000000\" rx=\"33.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"535.000000\" y=\"1007.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">ByteBuffer</text></g><g id=\"java.nio.FloatBuffer\"><g class=\"shape\" ><rect x=\"625.000000\" y=\"969.000000\" width=\"149.000000\" height=\"66.000000\" rx=\"33.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"699.500000\" y=\"1007.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">FloatBuffer</text></g><g id=\"java.nio.IntBuffer\"><g class=\"shape\" ><rect x=\"794.000000\" y=\"969.000000\" width=\"130.000000\" height=\"66.000000\" rx=\"33.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"859.000000\" y=\"1007.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">IntBuffer</text></g><g id=\"java.util.ArrayList\"><g class=\"shape\" ><rect x=\"214.000000\" y=\"969.000000\" width=\"131.000000\" height=\"66.000000\" rx=\"33.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:2;\" /></g><text x=\"279.500000\" y=\"1007.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">ArrayList</text></g><g id=\"org.lwjgl.BufferUtils\"><g class=\"shape\" ><rect x=\"1144.000000\" y=\"969.000000\" width=\"149.000000\" height=\"66.000000\" rx=\"33.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:2;\" /></g><text x=\"1218.500000\" y=\"1007.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">BufferUtils</text></g><g id=\"com.ch.voxel\"><g class=\"shape\" ><rect x=\"675.000000\" y=\"112.000000\" width=\"194.000000\" height=\"166.000000\" class=\" stroke-B1 fill-B6\" style=\"stroke-width:2;\" /></g><text x=\"772.000000\" y=\"137.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:20px\">voxel</text></g><g id=\"com.ch.voxel.Chunk\"><g class=\"shape\" ><rect x=\"725.000000\" y=\"162.000000\" width=\"94.000000\" height=\"66.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"772.000000\" y=\"200.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">Chunk</text></g><g id=\"(com.ch.Util -&gt; java.util.List)[0]\"><marker id=\"mk-558834944\" markerWidth=\"10.000000\" markerHeight=\"12.000000\" refX=\"7.000000\" refY=\"6.000000\" viewBox=\"0.000000 0.000000 10.000000 12.000000\" orient=\"auto\" markerUnits=\"userSpaceOnUse\"> <polygon points=\"0.000000,0.000000 10.000000,6.000000 0.000000,12.000000\" fill=\"#26de81\" class=\"connection\" stroke-width=\"2\" /> </marker><path d=\"M 628.666016 420.000000 L 628.666016 559.000000 S 628.666016 569.000000 618.666016 569.000000 L 163.000000 569.000000 S 153.000000 569.000000 153.000000 579.000000 L 153.000000 965.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-541107315)\" /><text x=\"187.000000\" y=\"959.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"(com.ch.Util -&gt; java.nio.ByteBuffer)[0]\"><path d=\"M 700.666016 420.000000 L 700.666016 659.000000 S 700.666016 669.000000 690.666016 669.000000 L 521.665985 669.000000 S 511.665985 669.000000 511.665985 679.000000 L 511.665985 966.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-541107315)\" /><text x=\"546.000000\" y=\"959.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"(com.ch.Util -&gt; java.nio.FloatBuffer)[0]\"><path d=\"M 772.666016 420.000000 L 772.666016 759.000000 S 772.666016 769.000000 762.666016 769.000000 L 684.666016 769.000000 S 674.666016 769.000000 674.666016 779.000000 L 674.666016 966.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-541107315)\" /><text x=\"709.000000\" y=\"959.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"(com.ch.Util -&gt; java.nio.IntBuffer)[0]\"><path d=\"M 837.333008 420.000000 L 837.333008 966.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-541107315)\" /><text x=\"871.000000\" y=\"959.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"(com.ch.Util -&gt; java.util.ArrayList)[0]\"><path d=\"M 664.666016 420.000000 L 664.666016 609.000000 S 664.666016 619.000000 654.666016 619.000000 L 289.500000 619.000000 S 279.500000 619.000000 279.500000 629.000000 L 279.500000 965.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-541107315)\" /><text x=\"314.000000\" y=\"959.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"(com.ch.Util -&gt; org.lwjgl.BufferUtils)[0]\"><path d=\"M 916.666016 420.000000 L 916.666016 559.000000 S 916.666016 569.000000 926.666016 569.000000 L 1208.500000 569.000000 S 1218.500000 569.000000 1218.500000 579.000000 L 1218.500000 965.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-541107315)\" /><text x=\"1253.000000\" y=\"959.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"com.ch.(voxel.Chunk -&gt; Util)[0]\"><path d=\"M 772.666016 229.000000 L 772.666016 350.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-541107315)\" /><text x=\"807.000000\" y=\"343.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"(com.ch.Util -&gt; java.nio.FloatBuffer)[1]\"><path d=\"M 808.666016 420.000000 L 808.666016 809.000000 S 808.666016 819.000000 798.666016 819.000000 L 734.333008 819.000000 S 724.333008 819.000000 724.333008 829.000000 L 724.333008 966.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-541107315)\" /></g><g id=\"(com.ch.Util -&gt; java.nio.IntBuffer)[1]\"><path d=\"M 880.666016 420.000000 L 880.666016 966.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-541107315)\" /></g><g id=\"(com.ch.Util -&gt; java.nio.ByteBuffer)[1]\"><path d=\"M 736.666016 420.000000 L 736.666016 709.000000 S 736.666016 719.000000 726.666016 719.000000 L 568.333008 719.000000 S 558.333008 719.000000 558.333008 729.000000 L 558.333008 966.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-541107315)\" /></g><mask id=\"d2-541107315\" maskUnits=\"userSpaceOnUse\" x=\"11\" y=\"11\" width=\"1383\" height=\"1125\">\n<rect x=\"11\" y=\"11\" width=\"1383\" height=\"1125\" fill=\"white\"></rect>\n<rect x=\"747.500000\" y=\"17.000000\" width=\"49\" height=\"36\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"493.000000\" y=\"869.000000\" width=\"50\" height=\"36\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"1199.500000\" y=\"869.000000\" width=\"38\" height=\"36\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"761.000000\" y=\"67.000000\" width=\"22\" height=\"31\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"212.000000\" y=\"924.000000\" width=\"33\" height=\"31\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"679.000000\" y=\"924.000000\" width=\"31\" height=\"31\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"1195.000000\" y=\"924.000000\" width=\"47\" height=\"31\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"753.500000\" y=\"375.500000\" width=\"37\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"134.500000\" y=\"991.500000\" width=\"37\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"487.500000\" y=\"991.500000\" width=\"95\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"647.500000\" y=\"991.500000\" width=\"104\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"816.500000\" y=\"991.500000\" width=\"85\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"236.500000\" y=\"991.500000\" width=\"86\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"1166.500000\" y=\"991.500000\" width=\"104\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"749.500000\" y=\"117.000000\" width=\"45\" height=\"26\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"747.500000\" y=\"184.500000\" width=\"49\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n</mask></svg></svg>\n",
+          "d2_src": "direction: down\n\nvars: {\n  d2-config: {\n    pad: 0\n    theme-overrides: {\n      B1: \"#717D86\"\n      B2: \"#717D86\"\n      B3: \"#ffff00\"\n      B4: \"#151719\"\n      B5: \"#151719\"\n      B6: \"#151719\"\n      N1: \"#ECEDED\"\n      N7: \"#151719\"\n      AA2: \"#ECEDED\"\n    }\n  }\n}\n\nstyle: {\n  fill: \"#151719\"\n}\ncom.ch.Util -> java.util.List: {\n  target-arrowhead: \"imports\"\n  style: {\n    stroke: \"#26de81\"\n    stroke-dash: 3\n  }\n}\n\ncom.ch.Util -> java.nio.ByteBuffer: {\n  target-arrowhead: \"imports\"\n  style: {\n    stroke: \"#26de81\"\n    stroke-dash: 3\n  }\n}\n\ncom.ch.Util -> java.nio.FloatBuffer: {\n  target-arrowhead: \"imports\"\n  style: {\n    stroke: \"#26de81\"\n    stroke-dash: 3\n  }\n}\n\ncom.ch.Util -> java.nio.IntBuffer: {\n  target-arrowhead: \"imports\"\n  style: {\n    stroke: \"#26de81\"\n    stroke-dash: 3\n  }\n}\n\ncom.ch.Util -> java.util.ArrayList: {\n  target-arrowhead: \"imports\"\n  style: {\n    stroke: \"#26de81\"\n    stroke-dash: 3\n  }\n}\n\ncom.ch.Util -> org.lwjgl.BufferUtils: {\n  target-arrowhead: \"imports\"\n  style: {\n    stroke: \"#26de81\"\n    stroke-dash: 3\n  }\n}\n\ncom.ch.voxel.Chunk -> com.ch.Util: {\n  target-arrowhead: \"imports\"\n  style: {\n    stroke: \"#26de81\"\n    stroke-dash: 3\n  }\n}\n\ncom.ch.Util -> java.nio.FloatBuffer: {\n  style: {\n    stroke: \"#26de81\"\n  }\n}\n\ncom.ch.Util -> java.nio.IntBuffer: {\n  style: {\n    stroke: \"#26de81\"\n  }\n}\n\ncom.ch.Util -> java.nio.ByteBuffer: {\n  style: {\n    stroke: \"#26de81\"\n  }\n}\n\norg.lwjgl.BufferUtils: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    border-radius: 100\n  }\n}\n\njava.util.List: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    border-radius: 100\n  }\n}\n\njava.nio.ByteBuffer: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    border-radius: 100\n  }\n}\n\njava.util.ArrayList: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    border-radius: 100\n  }\n}\n\njava.nio.FloatBuffer: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    border-radius: 100\n  }\n}\n\njava.nio.IntBuffer: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    border-radius: 100\n  }\n}\n\ncom.ch.Util: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    stroke-width: 0\n  }\n}\n\ncom.ch.voxel.Chunk: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    stroke-width: 0\n  }\n}\n\njava.nio.FloatBuffer: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    stroke-width: 0\n  }\n}\n\njava.nio.IntBuffer: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    stroke-width: 0\n  }\n}\n\njava.nio.ByteBuffer: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    stroke-width: 0\n  }\n}\n\ncom.ch.Util: {\n  style: {\n    fill: \"#26de81\"\n    font-color: \"#151719\"\n    stroke-width: 0\n  }\n}\n"
+        },
         "items": [
           {
-            "id": "5c367c2d-ca74-f091-4b4b-106f28c4e629",
+            "id": "145a0b1d-a375-6aa7-5142-4d988b800177",
             "ancestors": [],
-            "type": "function",
-            "description": "Is a utility class that provides various methods for manipulating arrays of data, including converting between integer, float, and boolean arrays, as well as removing empty strings from an array. It also provides methods for creating and manipulating buffers for storing vertex positions, tangents, and normals in a 3D graphics context. Additionally, it offers methods for creating matrices in 4D space.",
+            "description": "Provides various utility functions for creating buffers and converting between primitive data types. It also includes methods for removing empty strings from an array and converting lists of integers and floats to arrays.",
             "name": "Util",
             "location": {
               "start": 11,
@@ -2509,23 +2513,22 @@
             "docLength": null
           },
           {
-            "id": "f93f808a-a8dd-6898-d94b-eae52f187ae8",
+            "id": "d72b1c49-2bd7-48a6-174b-82b0bfab300c",
             "ancestors": [
-              "5c367c2d-ca74-f091-4b4b-106f28c4e629"
+              "145a0b1d-a375-6aa7-5142-4d988b800177"
             ],
-            "type": "function",
-            "description": "Creates a new FloatBuffer object with the specified size.",
+            "description": "Creates a new float buffer with the specified `size`. It returns a newly created float buffer object using `BufferUtils.createFloatBuffer()` method. The returned buffer is not initialized and needs to be filled with data before being used.",
             "params": [
               {
                 "name": "size",
                 "type_name": "int",
-                "description": "number of elements to be stored in the FloatBuffer.",
+                "description": "umber of floating-point values that the returned `FloatBuffer` will be able to hold.",
                 "complex_type": false
               }
             ],
             "returns": {
               "type_name": "FloatBuffer",
-              "description": "a FloatBuffer object of specified size, created using `BufferUtils`.",
+              "description": "a FloatBuffer object created with the specified size.",
               "complex_type": false
             },
             "name": "createFloatBuffer",
@@ -2541,23 +2544,22 @@
             "docLength": null
           },
           {
-            "id": "c8745d07-8b49-2cbe-364d-407311e611c4",
+            "id": "1e54a55e-8a85-909b-734e-3c3a3bbba5c5",
             "ancestors": [
-              "5c367c2d-ca74-f091-4b4b-106f28c4e629"
+              "145a0b1d-a375-6aa7-5142-4d988b800177"
             ],
-            "type": "function",
-            "description": "Creates an `IntBuffer` instance with the specified size using `BufferUtils`.",
+            "description": "Creates an IntBuffer with a specified size, allocating memory to store integer values. The buffer is initialized to zero and can be used for storing or retrieving integer data. It returns the newly created IntBuffer instance.",
             "params": [
               {
                 "name": "size",
                 "type_name": "int",
-                "description": "integer capacity of the IntBuffer to be created, which determines the number of elements that can be stored in the buffer.",
+                "description": "umber of integers that can be stored in the created IntBuffer, determining its capacity and maximum size.",
                 "complex_type": false
               }
             ],
             "returns": {
               "type_name": "IntBuffer",
-              "description": "an `IntBuffer` object that represents a buffer of integers with the specified size.",
+              "description": "an instance of `IntBuffer`.",
               "complex_type": false
             },
             "name": "createIntBuffer",
@@ -2573,23 +2575,22 @@
             "docLength": null
           },
           {
-            "id": "42df1ba6-3761-5f86-764c-7853d61f7f36",
+            "id": "859a26c0-e8d0-8ca4-3747-ed4e3961c9f4",
             "ancestors": [
-              "5c367c2d-ca74-f091-4b4b-106f28c4e629"
+              "145a0b1d-a375-6aa7-5142-4d988b800177"
             ],
-            "type": "function",
-            "description": "Creates a new byte buffer with the specified size using the `BufferUtils` class.",
+            "description": "Returns a new instance of `ByteBuffer` with the specified size using `BufferUtils`. The created buffer is uninitialized, meaning it does not contain any data. It provides a mechanism to store and retrieve binary data efficiently.",
             "params": [
               {
                 "name": "size",
                 "type_name": "int",
-                "description": "desired capacity of the byte buffer to be created, which is used by the `BufferUtils.createByteBuffer()` method to determine the appropriate buffer size and allocate memory for it.",
+                "description": "umber of bytes to allocate for the resulting byte buffer, which is used to create a new ByteBuffer object with the specified size.",
                 "complex_type": false
               }
             ],
             "returns": {
               "type_name": "ByteBuffer",
-              "description": "a non-null `ByteBuffer` instance of the specified size.",
+              "description": "a Java `ByteBuffer` object of specified size.",
               "complex_type": false
             },
             "name": "createByteBuffer",
@@ -2605,16 +2606,22 @@
             "docLength": null
           },
           {
-            "id": "7996afbd-4fac-b483-b343-bfafa0e8465a",
+            "id": "ff4a0dce-e419-d1a8-5a42-6e9d54fd0b1e",
             "ancestors": [
-              "5c367c2d-ca74-f091-4b4b-106f28c4e629"
+              "145a0b1d-a375-6aa7-5142-4d988b800177"
             ],
-            "type": "function",
-            "description": "Creates an `IntBuffer` object from a provided array of integers, puts the values into the buffer, and flips the buffer for efficient access.",
-            "params": [],
+            "description": "Creates an `IntBuffer` from a variable number of integer values, puts the values into the buffer, and then flips the buffer to prepare it for reading. The resulting buffer can be used for both writing and reading operations.",
+            "params": [
+              {
+                "name": "values",
+                "type_name": "int[]",
+                "description": "0-based indices of an array that is used to populate the IntBuffer with integer values.",
+                "complex_type": false
+              }
+            ],
             "returns": {
               "type_name": "IntBuffer",
-              "description": "an flipped `IntBuffer` containing the provided values.",
+              "description": "a flipped `IntBuffer` containing the input values.",
               "complex_type": false
             },
             "name": "createFlippedBuffer",
@@ -2630,16 +2637,22 @@
             "docLength": null
           },
           {
-            "id": "60265845-eb96-e8a6-b24a-a7f4eef5fd8c",
+            "id": "9221f664-0e5e-3890-e548-8848b95fd3ec",
             "ancestors": [
-              "5c367c2d-ca74-f091-4b4b-106f28c4e629"
+              "145a0b1d-a375-6aa7-5142-4d988b800177"
             ],
-            "type": "function",
-            "description": "Creates a new `FloatBuffer` object and populates it with the specified `float` values, then flips the buffer to position the first element at the beginning. It returns the flipped buffer.",
-            "params": [],
+            "description": "Creates a FloatBuffer from an array of float values, puts the values into the buffer, and then flips the buffer to prepare it for reading. It returns the flipped buffer.",
+            "params": [
+              {
+                "name": "values",
+                "type_name": "float[]",
+                "description": "float array elements to be written into the FloatBuffer object.",
+                "complex_type": false
+              }
+            ],
             "returns": {
               "type_name": "FloatBuffer",
-              "description": "a flipped FloatBuffer containing the input values.",
+              "description": "a flipped FloatBuffer containing the provided float values.",
               "complex_type": false
             },
             "name": "createFlippedBuffer",
@@ -2655,24 +2668,23 @@
             "docLength": null
           },
           {
-            "id": "bcbc33d6-8cd4-19b8-014d-c1006a028fe9",
+            "id": "2009cbdf-fc1e-b589-fc41-1b46d595ae12",
             "ancestors": [
-              "5c367c2d-ca74-f091-4b4b-106f28c4e629"
+              "145a0b1d-a375-6aa7-5142-4d988b800177"
             ],
-            "type": "function",
-            "description": "Removes empty strings from an array of strings, returning a new array with non-empty strings.",
+            "description": "Transforms an input array of strings into a new array, excluding any empty strings and preserving the original order. It achieves this by iterating through the input array, adding non-empty strings to an ArrayList, and then converting the ArrayList back to an array.",
             "params": [
               {
                 "name": "data",
                 "type_name": "String[]",
-                "description": "0-length array of strings that are to be filtered for empty strings.\n\n* Length: `data.length`\n* Elements: The array contains multiple strings\n* Properties of individual elements: Each element is a string that may or may not be empty",
+                "description": "1-D array of strings to be processed by removing empty strings and returning an updated string array.\n\nData is an array of strings, where each string represents a value. The length of this array is dynamically determined by the number of elements added during execution.",
                 "complex_type": true
               }
             ],
             "returns": {
-              "type_name": "String",
-              "description": "a new array of non-empty strings, containing all the elements from the original array that are not empty.",
-              "complex_type": false
+              "type_name": "array",
+              "description": "an array of non-empty strings.\n\nThe output is an array of strings.",
+              "complex_type": true
             },
             "name": "removeEmptyStrings",
             "location": {
@@ -2687,23 +2699,22 @@
             "docLength": null
           },
           {
-            "id": "d2ce4fd9-0b0d-cda2-e749-a8b900044ba6",
+            "id": "c3cc4645-e4d0-65b0-eb42-a2c0160a8fe1",
             "ancestors": [
-              "5c367c2d-ca74-f091-4b4b-106f28c4e629"
+              "145a0b1d-a375-6aa7-5142-4d988b800177"
             ],
-            "type": "function",
-            "description": "Transforms an array of integers into an integer array with the same length, by simply copying the elements of the input array to the output array.",
+            "description": "Converts an array of `Integer` objects into an array of primitive `int` values. It iterates over the input array, assigning each integer value to a corresponding element in the output array. The resulting array is returned as a static method result.",
             "params": [
               {
                 "name": "data",
                 "type_name": "Integer[]",
-                "description": "1D array of integers that is converted to a 1D integer array by the function.",
+                "description": "2D array of integers that is being converted to a primitive int array.",
                 "complex_type": false
               }
             ],
             "returns": {
               "type_name": "int",
-              "description": "an int array with the same length as the input `data` array, containing the corresponding integer values.",
+              "description": "an integer array converted from a given Integer array.",
               "complex_type": false
             },
             "name": "toIntArray",
@@ -2719,23 +2730,22 @@
             "docLength": null
           },
           {
-            "id": "be589def-b094-d780-7548-4f4973981022",
+            "id": "8f311968-d6bf-fe83-b749-ff0ddcc1c55e",
             "ancestors": [
-              "5c367c2d-ca74-f091-4b4b-106f28c4e629"
+              "145a0b1d-a375-6aa7-5142-4d988b800177"
             ],
-            "type": "function",
-            "description": "Converts a `List<Integer>` to an `int[]` array, copying the values of the list into the array.",
+            "description": "Converts a List of Integer values to an array of integers. It iterates through the input list, assigning each value to its corresponding index in the resulting array. The array is then returned as the output.",
             "params": [
               {
                 "name": "data",
                 "type_name": "List<Integer>",
-                "description": "list of integers to be converted into an integer array.",
+                "description": "List of Integer values to be converted into an integer array.",
                 "complex_type": false
               }
             ],
             "returns": {
               "type_name": "integer",
-              "description": "an int array containing the elements of the input list.",
+              "description": "an integer array containing elements from the input list.",
               "complex_type": false
             },
             "name": "toIntArray",
@@ -2751,23 +2761,22 @@
             "docLength": null
           },
           {
-            "id": "2ed92358-1066-c2be-da47-f298a03102d7",
+            "id": "6f72a293-5d8d-e998-8d45-434eb39e7e6f",
             "ancestors": [
-              "5c367c2d-ca74-f091-4b4b-106f28c4e629"
+              "145a0b1d-a375-6aa7-5142-4d988b800177"
             ],
-            "type": "function",
-            "description": "Takes a `Float[]` array as input and returns a new `float[]` array with the same elements.",
+            "description": "Converts a given array of Float objects to an array of primitive float values, maintaining the original length and order of elements. It iterates over the input array, copying each element to the corresponding position in the output array.",
             "params": [
               {
                 "name": "data",
                 "type_name": "Float[]",
-                "description": "0-based array of floating-point numbers that will be converted into a new 0-based array of floating-point numbers.",
+                "description": "2D array of Float objects to be converted into a 1D array of float primitive types.",
                 "complex_type": false
               }
             ],
             "returns": {
-              "type_name": "float",
-              "description": "an array of `float` values containing the same elements as the input `Float[]` array.",
+              "type_name": "array",
+              "description": "a new array of floats.",
               "complex_type": false
             },
             "name": "toFloatArray",
@@ -2783,23 +2792,22 @@
             "docLength": null
           },
           {
-            "id": "4c3bbbff-98b4-7c96-1f4f-4de608920734",
+            "id": "25fd5c4a-59fe-bd80-d542-b63d5d474e6c",
             "ancestors": [
-              "5c367c2d-ca74-f091-4b4b-106f28c4e629"
+              "145a0b1d-a375-6aa7-5142-4d988b800177"
             ],
-            "type": "function",
-            "description": "Converts a list of floating-point numbers to an array of the same size, with each element corresponding to the value in the input list.",
+            "description": "Converts a list of floating-point numbers into an array of floats. It iterates over the input list, assigning each element to its corresponding index in the output array. The resulting array is then returned.",
             "params": [
               {
                 "name": "data",
                 "type_name": "List<Float>",
-                "description": "list of floating-point numbers that will be converted into an array of floats by the `toFloatArray()` method.",
+                "description": "List of Float values to be converted into a float array and processed by the function.",
                 "complex_type": false
               }
             ],
             "returns": {
-              "type_name": "float",
-              "description": "an array of `float` values equal to the size of the input `List<Float>` containing the corresponding floating-point numbers.",
+              "type_name": "array",
+              "description": "an array of float values converted from a list.",
               "complex_type": false
             },
             "name": "toFloatArray",

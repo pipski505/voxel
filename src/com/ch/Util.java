@@ -9,56 +9,63 @@ import java.util.ArrayList;
 import org.lwjgl.BufferUtils;
 
 /**
- * Is a utility class that provides various methods for manipulating arrays of data,
- * including converting between integer, float, and boolean arrays, as well as removing
- * empty strings from an array. It also provides methods for creating and manipulating
- * buffers for storing vertex positions, tangents, and normals in a 3D graphics
- * context. Additionally, it offers methods for creating matrices in 4D space.
+ * Provides various utility functions for creating buffers and converting between
+ * primitive data types. It also includes methods for removing empty strings from an
+ * array and converting lists of integers and floats to arrays.
  */
 public class Util {
 	
 	/**
-	 * Creates a new FloatBuffer object with the specified size.
-	 * 
-	 * @param size number of elements to be stored in the FloatBuffer.
-	 * 
-	 * @returns a FloatBuffer object of specified size, created using `BufferUtils`.
+	 * Creates a new float buffer with the specified `size`. It returns a newly created
+	 * float buffer object using `BufferUtils.createFloatBuffer()` method. The returned
+	 * buffer is not initialized and needs to be filled with data before being used.
+	 *
+	 * @param size umber of floating-point values that the returned `FloatBuffer` will
+	 * be able to hold.
+	 *
+	 * @returns a FloatBuffer object created with the specified size.
 	 */
 	public static FloatBuffer createFloatBuffer(int size) {
 		return BufferUtils.createFloatBuffer(size);
 	}
 
 	/**
-	 * Creates an `IntBuffer` instance with the specified size using `BufferUtils`.
-	 * 
-	 * @param size integer capacity of the IntBuffer to be created, which determines the
-	 * number of elements that can be stored in the buffer.
-	 * 
-	 * @returns an `IntBuffer` object that represents a buffer of integers with the
-	 * specified size.
+	 * Creates an IntBuffer with a specified size, allocating memory to store integer
+	 * values. The buffer is initialized to zero and can be used for storing or retrieving
+	 * integer data. It returns the newly created IntBuffer instance.
+	 *
+	 * @param size umber of integers that can be stored in the created IntBuffer, determining
+	 * its capacity and maximum size.
+	 *
+	 * @returns an instance of `IntBuffer`.
 	 */
 	public static IntBuffer createIntBuffer(int size) {
 		return BufferUtils.createIntBuffer(size);
 	}
 
 	/**
-	 * Creates a new byte buffer with the specified size using the `BufferUtils` class.
-	 * 
-	 * @param size desired capacity of the byte buffer to be created, which is used by
-	 * the `BufferUtils.createByteBuffer()` method to determine the appropriate buffer
-	 * size and allocate memory for it.
-	 * 
-	 * @returns a non-null `ByteBuffer` instance of the specified size.
+	 * Returns a new instance of `ByteBuffer` with the specified size using `BufferUtils`.
+	 * The created buffer is uninitialized, meaning it does not contain any data. It
+	 * provides a mechanism to store and retrieve binary data efficiently.
+	 *
+	 * @param size umber of bytes to allocate for the resulting byte buffer, which is
+	 * used to create a new ByteBuffer object with the specified size.
+	 *
+	 * @returns a Java `ByteBuffer` object of specified size.
 	 */
 	public static ByteBuffer createByteBuffer(int size) {
 		return BufferUtils.createByteBuffer(size);
 	}
 
 	/**
-	 * Creates an `IntBuffer` object from a provided array of integers, puts the values
-	 * into the buffer, and flips the buffer for efficient access.
-	 * 
-	 * @returns an flipped `IntBuffer` containing the provided values.
+	 * Creates an `IntBuffer` from a variable number of integer values, puts the values
+	 * into the buffer, and then flips the buffer to prepare it for reading. The resulting
+	 * buffer can be used for both writing and reading operations.
+	 *
+	 * @param values 0-based indices of an array that is used to populate the IntBuffer
+	 * with integer values.
+	 *
+	 * @returns a flipped `IntBuffer` containing the input values.
 	 */
 	public static IntBuffer createFlippedBuffer(int... values) {
 		IntBuffer buffer = createIntBuffer(values.length);
@@ -69,11 +76,13 @@ public class Util {
 	}
 	
 	/**
-	 * Creates a new `FloatBuffer` object and populates it with the specified `float`
-	 * values, then flips the buffer to position the first element at the beginning. It
-	 * returns the flipped buffer.
-	 * 
-	 * @returns a flipped FloatBuffer containing the input values.
+	 * Creates a FloatBuffer from an array of float values, puts the values into the
+	 * buffer, and then flips the buffer to prepare it for reading. It returns the flipped
+	 * buffer.
+	 *
+	 * @param values float array elements to be written into the FloatBuffer object.
+	 *
+	 * @returns a flipped FloatBuffer containing the provided float values.
 	 */
 	public static FloatBuffer createFlippedBuffer(float... values) {
 		FloatBuffer buffer = createFloatBuffer(values.length);
@@ -134,18 +143,20 @@ public class Util {
 	}
 */
 	/**
-	 * Removes empty strings from an array of strings, returning a new array with non-empty
-	 * strings.
-	 * 
-	 * @param data 0-length array of strings that are to be filtered for empty strings.
-	 * 
-	 * 	- Length: `data.length`
-	 * 	- Elements: The array contains multiple strings
-	 * 	- Properties of individual elements: Each element is a string that may or may not
-	 * be empty
-	 * 
-	 * @returns a new array of non-empty strings, containing all the elements from the
-	 * original array that are not empty.
+	 * Transforms an input array of strings into a new array, excluding any empty strings
+	 * and preserving the original order. It achieves this by iterating through the input
+	 * array, adding non-empty strings to an ArrayList, and then converting the ArrayList
+	 * back to an array.
+	 *
+	 * @param data 1-D array of strings to be processed by removing empty strings and
+	 * returning an updated string array.
+	 *
+	 * Data is an array of strings, where each string represents a value. The length of
+	 * this array is dynamically determined by the number of elements added during execution.
+	 *
+	 * @returns an array of non-empty strings.
+	 *
+	 * The output is an array of strings.
 	 */
 	public static String[] removeEmptyStrings(String[] data) {
 		ArrayList<String> result = new ArrayList<String>();
@@ -161,13 +172,13 @@ public class Util {
 	}
 
 	/**
-	 * Transforms an array of integers into an integer array with the same length, by
-	 * simply copying the elements of the input array to the output array.
-	 * 
-	 * @param data 1D array of integers that is converted to a 1D integer array by the function.
-	 * 
-	 * @returns an int array with the same length as the input `data` array, containing
-	 * the corresponding integer values.
+	 * Converts an array of `Integer` objects into an array of primitive `int` values.
+	 * It iterates over the input array, assigning each integer value to a corresponding
+	 * element in the output array. The resulting array is returned as a static method result.
+	 *
+	 * @param data 2D array of integers that is being converted to a primitive int array.
+	 *
+	 * @returns an integer array converted from a given Integer array.
 	 */
 	public static int[] toIntArray(Integer[] data) {
 		int[] result = new int[data.length];
@@ -179,12 +190,13 @@ public class Util {
 	}
 	
 	/**
-	 * Converts a `List<Integer>` to an `int[]` array, copying the values of the list
-	 * into the array.
-	 * 
-	 * @param data list of integers to be converted into an integer array.
-	 * 
-	 * @returns an int array containing the elements of the input list.
+	 * Converts a List of Integer values to an array of integers. It iterates through the
+	 * input list, assigning each value to its corresponding index in the resulting array.
+	 * The array is then returned as the output.
+	 *
+	 * @param data List of Integer values to be converted into an integer array.
+	 *
+	 * @returns an integer array containing elements from the input list.
 	 */
 	public static int[] toIntArray(List<Integer> data) {
 		int[] result = new int[data.size()];
@@ -196,14 +208,14 @@ public class Util {
 	}
 	
 	/**
-	 * Takes a `Float[]` array as input and returns a new `float[]` array with the same
-	 * elements.
-	 * 
-	 * @param data 0-based array of floating-point numbers that will be converted into a
-	 * new 0-based array of floating-point numbers.
-	 * 
-	 * @returns an array of `float` values containing the same elements as the input
-	 * `Float[]` array.
+	 * Converts a given array of Float objects to an array of primitive float values,
+	 * maintaining the original length and order of elements. It iterates over the input
+	 * array, copying each element to the corresponding position in the output array.
+	 *
+	 * @param data 2D array of Float objects to be converted into a 1D array of float
+	 * primitive types.
+	 *
+	 * @returns a new array of floats.
 	 */
 	public static float[] toFloatArray(Float[] data) {
 		float[] result = new float[data.length];
@@ -215,14 +227,14 @@ public class Util {
 	}
 	
 	/**
-	 * Converts a list of floating-point numbers to an array of the same size, with each
-	 * element corresponding to the value in the input list.
-	 * 
-	 * @param data list of floating-point numbers that will be converted into an array
-	 * of floats by the `toFloatArray()` method.
-	 * 
-	 * @returns an array of `float` values equal to the size of the input `List<Float>`
-	 * containing the corresponding floating-point numbers.
+	 * Converts a list of floating-point numbers into an array of floats. It iterates
+	 * over the input list, assigning each element to its corresponding index in the
+	 * output array. The resulting array is then returned.
+	 *
+	 * @param data List of Float values to be converted into a float array and processed
+	 * by the function.
+	 *
+	 * @returns an array of float values converted from a list.
 	 */
 	public static float[] toFloatArray(List<Float> data) {
 		float[] result = new float[data.size()];
