@@ -1919,13 +1919,17 @@
     "path": "src/com/ch/Transform.java",
     "content": {
       "structured": {
-        "description": "A `Transform` class that represents a transformation in 3D space. It has several methods for rotating and scaling an object, as well as updating its position based on previous positions and rotations. The class also provides a getTransformation method to return the current transformation matrix, and a setParent method to set the parent transform.",
+        "description": "A Transform class that represents a 3D transformation in space. It maintains its own position, rotation, and scale attributes as well as references to its parent transform. The class provides methods for updating and modifying these attributes, including rotating around an axis and looking at a target point.",
+        "diagram": {
+          "gviz": "digraph G {\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"]\n    \n    Matrix4f []\n    Vector3f []\n    Camera []\n    Quaternion []\n    subgraph cluster_main {\n        // style=filled\n        color=\"#00000000\"\n        Transform [] [fontsize=\"20pt\",style=filled,color=\"#26de81\",shape=square, fontname=\"Courier New\"]\n        label = \"\"\n    }\n    Transform -> Vector3f [style=\"dashed\"]\n    Transform -> Quaternion [style=\"dashed\"]\n    Camera -> Transform [penwidth=1]\n    Transform -> Quaternion [dir=\"both\", penwidth=4]\n    Vector3f -> Transform [dir=\"both\", penwidth=11]\n    Transform -> Matrix4f [penwidth=2]\n    Transform -> Matrix4f [style=\"dashed\"]\n}\n",
+          "d2": "<?xml version=\"1.0\" encoding=\"utf-8\"?><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" d2Version=\"v0.6.5\" preserveAspectRatio=\"xMinYMin meet\" viewBox=\"0 0 769 850\"><svg id=\"d2-svg\" class=\"d2-2003295026\" width=\"769\" height=\"850\" viewBox=\"11 11 769 850\"><rect x=\"11.000000\" y=\"11.000000\" width=\"769.000000\" height=\"850.000000\" rx=\"0.000000\" fill=\"#151719\" stroke-width=\"0\" /><style type=\"text/css\"><![CDATA[\n.d2-2003295026 .text {\n\tfont-family: \"d2-2003295026-font-regular\";\n}\n@font-face {\n\tfont-family: d2-2003295026-font-regular;\n\tsrc: url(\"data:application/font-woff;base64,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\");\n}\n.d2-2003295026 .text-italic {\n\tfont-family: \"d2-2003295026-font-italic\";\n}\n@font-face {\n\tfont-family: d2-2003295026-font-italic;\n\tsrc: url(\"data:application/font-woff;base64,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\");\n}\n.d2-2003295026 .text-mono {\n\tfont-family: \"d2-2003295026-font-mono\";\n}\n@font-face {\n\tfont-family: d2-2003295026-font-mono;\n\tsrc: url(\"data:application/font-woff;base64,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\");\n}\n.d2-2003295026 .text-mono-bold {\n\tfont-family: \"d2-2003295026-font-mono-bold\";\n}\n@font-face {\n\tfont-family: d2-2003295026-font-mono-bold;\n\tsrc: url(\"data:application/font-woff;base64,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\");\n}]]></style><style type=\"text/css\"><![CDATA[.shape {\n  shape-rendering: geometricPrecision;\n  stroke-linejoin: round;\n}\n.connection {\n  stroke-linecap: round;\n  stroke-linejoin: round;\n}\n.blend {\n  mix-blend-mode: multiply;\n  opacity: 0.5;\n}\n\n\t\t.d2-2003295026 .fill-N1{fill:#ECEDED;}\n\t\t.d2-2003295026 .fill-N2{fill:#676C7E;}\n\t\t.d2-2003295026 .fill-N3{fill:#9499AB;}\n\t\t.d2-2003295026 .fill-N4{fill:#CFD2DD;}\n\t\t.d2-2003295026 .fill-N5{fill:#DEE1EB;}\n\t\t.d2-2003295026 .fill-N6{fill:#EEF1F8;}\n\t\t.d2-2003295026 .fill-N7{fill:#151719;}\n\t\t.d2-2003295026 .fill-B1{fill:#717D86;}\n\t\t.d2-2003295026 .fill-B2{fill:#717D86;}\n\t\t.d2-2003295026 .fill-B3{fill:#ffff00;}\n\t\t.d2-2003295026 .fill-B4{fill:#151719;}\n\t\t.d2-2003295026 .fill-B5{fill:#151719;}\n\t\t.d2-2003295026 .fill-B6{fill:#151719;}\n\t\t.d2-2003295026 .fill-AA2{fill:#ECEDED;}\n\t\t.d2-2003295026 .fill-AA4{fill:#CFD2DD;}\n\t\t.d2-2003295026 .fill-AA5{fill:#DEE1EB;}\n\t\t.d2-2003295026 .fill-AB4{fill:#CFD2DD;}\n\t\t.d2-2003295026 .fill-AB5{fill:#DEE1EB;}\n\t\t.d2-2003295026 .stroke-N1{stroke:#ECEDED;}\n\t\t.d2-2003295026 .stroke-N2{stroke:#676C7E;}\n\t\t.d2-2003295026 .stroke-N3{stroke:#9499AB;}\n\t\t.d2-2003295026 .stroke-N4{stroke:#CFD2DD;}\n\t\t.d2-2003295026 .stroke-N5{stroke:#DEE1EB;}\n\t\t.d2-2003295026 .stroke-N6{stroke:#EEF1F8;}\n\t\t.d2-2003295026 .stroke-N7{stroke:#151719;}\n\t\t.d2-2003295026 .stroke-B1{stroke:#717D86;}\n\t\t.d2-2003295026 .stroke-B2{stroke:#717D86;}\n\t\t.d2-2003295026 .stroke-B3{stroke:#ffff00;}\n\t\t.d2-2003295026 .stroke-B4{stroke:#151719;}\n\t\t.d2-2003295026 .stroke-B5{stroke:#151719;}\n\t\t.d2-2003295026 .stroke-B6{stroke:#151719;}\n\t\t.d2-2003295026 .stroke-AA2{stroke:#ECEDED;}\n\t\t.d2-2003295026 .stroke-AA4{stroke:#CFD2DD;}\n\t\t.d2-2003295026 .stroke-AA5{stroke:#DEE1EB;}\n\t\t.d2-2003295026 .stroke-AB4{stroke:#CFD2DD;}\n\t\t.d2-2003295026 .stroke-AB5{stroke:#DEE1EB;}\n\t\t.d2-2003295026 .background-color-N1{background-color:#ECEDED;}\n\t\t.d2-2003295026 .background-color-N2{background-color:#676C7E;}\n\t\t.d2-2003295026 .background-color-N3{background-color:#9499AB;}\n\t\t.d2-2003295026 .background-color-N4{background-color:#CFD2DD;}\n\t\t.d2-2003295026 .background-color-N5{background-color:#DEE1EB;}\n\t\t.d2-2003295026 .background-color-N6{background-color:#EEF1F8;}\n\t\t.d2-2003295026 .background-color-N7{background-color:#151719;}\n\t\t.d2-2003295026 .background-color-B1{background-color:#717D86;}\n\t\t.d2-2003295026 .background-color-B2{background-color:#717D86;}\n\t\t.d2-2003295026 .background-color-B3{background-color:#ffff00;}\n\t\t.d2-2003295026 .background-color-B4{background-color:#151719;}\n\t\t.d2-2003295026 .background-color-B5{background-color:#151719;}\n\t\t.d2-2003295026 .background-color-B6{background-color:#151719;}\n\t\t.d2-2003295026 .background-color-AA2{background-color:#ECEDED;}\n\t\t.d2-2003295026 .background-color-AA4{background-color:#CFD2DD;}\n\t\t.d2-2003295026 .background-color-AA5{background-color:#DEE1EB;}\n\t\t.d2-2003295026 .background-color-AB4{background-color:#CFD2DD;}\n\t\t.d2-2003295026 .background-color-AB5{background-color:#DEE1EB;}\n\t\t.d2-2003295026 .color-N1{color:#ECEDED;}\n\t\t.d2-2003295026 .color-N2{color:#676C7E;}\n\t\t.d2-2003295026 .color-N3{color:#9499AB;}\n\t\t.d2-2003295026 .color-N4{color:#CFD2DD;}\n\t\t.d2-2003295026 .color-N5{color:#DEE1EB;}\n\t\t.d2-2003295026 .color-N6{color:#EEF1F8;}\n\t\t.d2-2003295026 .color-N7{color:#151719;}\n\t\t.d2-2003295026 .color-B1{color:#717D86;}\n\t\t.d2-2003295026 .color-B2{color:#717D86;}\n\t\t.d2-2003295026 .color-B3{color:#ffff00;}\n\t\t.d2-2003295026 .color-B4{color:#151719;}\n\t\t.d2-2003295026 .color-B5{color:#151719;}\n\t\t.d2-2003295026 .color-B6{color:#151719;}\n\t\t.d2-2003295026 .color-AA2{color:#ECEDED;}\n\t\t.d2-2003295026 .color-AA4{color:#CFD2DD;}\n\t\t.d2-2003295026 .color-AA5{color:#DEE1EB;}\n\t\t.d2-2003295026 .color-AB4{color:#CFD2DD;}\n\t\t.d2-2003295026 .color-AB5{color:#DEE1EB;}.appendix text.text{fill:#ECEDED}.md{--color-fg-default:#ECEDED;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#151719;--color-canvas-subtle:#EEF1F8;--color-border-default:#717D86;--color-border-muted:#717D86;--color-neutral-muted:#EEF1F8;--color-accent-fg:#717D86;--color-accent-emphasis:#717D86;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-B2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-B3{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B5{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B6{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-AA2{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AA4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-AA5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-AB5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-darker);mix-blend-mode:lighten}.light-code{display: block}.dark-code{display: none}]]></style><g id=\"com\"><g class=\"shape\" ><rect x=\"12.000000\" y=\"12.000000\" width=\"767.000000\" height=\"848.000000\" class=\" stroke-B1 fill-B4\" style=\"stroke-width:2;\" /></g><text x=\"395.500000\" y=\"45.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:28px\">com</text></g><g id=\"com.ch\"><g class=\"shape\" ><rect x=\"62.000000\" y=\"62.000000\" width=\"667.000000\" height=\"748.000000\" class=\" stroke-B1 fill-B5\" style=\"stroke-width:2;\" /></g><text x=\"395.500000\" y=\"91.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:24px\">ch</text></g><g id=\"com.ch.Transform\"><g class=\"shape\" ><rect x=\"384.000000\" y=\"248.000000\" width=\"200.000000\" height=\"66.000000\" fill=\"#26de81\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"484.000000\" y=\"286.500000\" fill=\"#151719\" class=\"text-mono-bold\" style=\"text-anchor:middle;font-size:16px\">Transform</text></g><g id=\"com.ch.math\"><g class=\"shape\" ><rect x=\"112.000000\" y=\"549.000000\" width=\"527.000000\" height=\"166.000000\" class=\" stroke-B1 fill-B6\" style=\"stroke-width:2;\" /></g><text x=\"375.500000\" y=\"574.000000\" class=\"text fill-N1\" style=\"text-anchor:middle;font-size:20px\">math</text></g><g id=\"com.ch.Camera\"><g class=\"shape\" ><rect x=\"433.000000\" y=\"112.000000\" width=\"102.000000\" height=\"66.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"484.000000\" y=\"150.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">Camera</text></g><g id=\"com.ch.math.Matrix4f\"><g class=\"shape\" ><rect x=\"162.000000\" y=\"599.000000\" width=\"123.000000\" height=\"66.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"223.500000\" y=\"637.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">Matrix4f</text></g><g id=\"com.ch.math.Quaternion\"><g class=\"shape\" ><rect x=\"305.000000\" y=\"599.000000\" width=\"141.000000\" height=\"66.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"375.500000\" y=\"637.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">Quaternion</text></g><g id=\"com.ch.math.Vector3f\"><g class=\"shape\" ><rect x=\"466.000000\" y=\"599.000000\" width=\"123.000000\" height=\"66.000000\" fill=\"#717D86\" class=\" stroke-B1\" style=\"stroke-width:0;\" /></g><text x=\"527.500000\" y=\"637.500000\" class=\"text-mono-bold fill-N1\" style=\"text-anchor:middle;font-size:16px\">Vector3f</text></g><g id=\"com.ch.(Transform -&gt; math.Matrix4f)[0]\"><marker id=\"mk-558834944\" markerWidth=\"10.000000\" markerHeight=\"12.000000\" refX=\"7.000000\" refY=\"6.000000\" viewBox=\"0.000000 0.000000 10.000000 12.000000\" orient=\"auto\" markerUnits=\"userSpaceOnUse\"> <polygon points=\"0.000000,0.000000 10.000000,6.000000 0.000000,12.000000\" fill=\"#26de81\" class=\"connection\" stroke-width=\"2\" /> </marker><path d=\"M 413.213989 315.000000 L 413.213989 344.000000 S 413.213989 354.000000 403.213989 354.000000 L 213.000000 354.000000 S 203.000000 354.000000 203.000000 364.000000 L 203.000000 596.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-2003295026)\" /><text x=\"237.000000\" y=\"589.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"com.ch.(Transform -&gt; math.Quaternion)[0]\"><path d=\"M 470.356995 315.000000 L 470.356995 444.000000 S 470.356995 454.000000 460.356995 454.000000 L 362.000000 454.000000 S 352.000000 454.000000 352.000000 464.000000 L 352.000000 596.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-2003295026)\" /><text x=\"386.000000\" y=\"589.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"com.ch.(Transform -&gt; math.Vector3f)[0]\"><path d=\"M 527.500000 315.000000 L 527.500000 596.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;stroke-dasharray:6.000000,5.919384;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-2003295026)\" /><text x=\"562.000000\" y=\"589.000000\" class=\"text-italic fill-N1\" style=\"text-anchor:middle;font-size:16px\">imports</text></g><g id=\"com.ch.(Camera -&gt; Transform)[0]\"><path d=\"M 484.641998 179.000000 L 484.641998 245.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-2003295026)\" /></g><g id=\"com.ch.(Transform &lt;-&gt; math.Quaternion)[0]\"><marker id=\"mk-3695359059\" markerWidth=\"10.000000\" markerHeight=\"12.000000\" refX=\"3.000000\" refY=\"6.000000\" viewBox=\"0.000000 0.000000 10.000000 12.000000\" orient=\"auto\" markerUnits=\"userSpaceOnUse\"> <polygon points=\"10.000000,0.000000 0.000000,6.000000 10.000000,12.000000\" fill=\"#26de81\" class=\"connection\" stroke-width=\"2\" /> </marker><path d=\"M 498.928009 317.000000 L 498.928009 494.000000 S 498.928009 504.000000 488.928009 504.000000 L 409.000000 504.000000 S 399.000000 504.000000 399.000000 514.000000 L 399.000000 596.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;\" marker-start=\"url(#mk-3695359059)\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-2003295026)\" /></g><g id=\"com.ch.(Transform -&gt; math.Matrix4f)[1]\"><path d=\"M 441.785004 315.000000 L 441.785004 394.000000 S 441.785004 404.000000 431.785004 404.000000 L 254.000000 404.000000 S 244.000000 404.000000 244.000000 414.000000 L 244.000000 596.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-2003295026)\" /></g><g id=\"com.ch.(math.Vector3f &lt;-&gt; Transform)[0]\"><path d=\"M 527.500000 668.000000 L 527.500000 750.000000 S 527.500000 760.000000 537.500000 760.000000 L 669.000000 760.000000 S 679.000000 760.000000 679.000000 750.000000 L 679.000000 364.000000 S 679.000000 354.000000 669.000000 354.000000 L 566.070984 354.000000 S 556.070984 354.000000 556.070984 344.000000 L 556.070984 317.000000\" stroke=\"#26de81\" fill=\"none\" class=\"connection\" style=\"stroke-width:2;\" marker-start=\"url(#mk-3695359059)\" marker-end=\"url(#mk-558834944)\" mask=\"url(#d2-2003295026)\" /></g><mask id=\"d2-2003295026\" maskUnits=\"userSpaceOnUse\" x=\"11\" y=\"11\" width=\"769\" height=\"850\">\n<rect x=\"11\" y=\"11\" width=\"769\" height=\"850\" fill=\"white\"></rect>\n<rect x=\"371.000000\" y=\"17.000000\" width=\"49\" height=\"36\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"384.500000\" y=\"67.000000\" width=\"22\" height=\"31\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"440.500000\" y=\"270.500000\" width=\"87\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"354.000000\" y=\"554.000000\" width=\"43\" height=\"26\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"455.500000\" y=\"134.500000\" width=\"57\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"184.500000\" y=\"621.500000\" width=\"78\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"327.500000\" y=\"621.500000\" width=\"96\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n<rect x=\"488.500000\" y=\"621.500000\" width=\"78\" height=\"21\" fill=\"rgba(0,0,0,0.75)\"></rect>\n</mask></svg></svg>\n",
+          "d2_src": "direction: down\n\nvars: {\n  d2-config: {\n    pad: 0\n    theme-overrides: {\n      B1: \"#717D86\"\n      B2: \"#717D86\"\n      B3: \"#ffff00\"\n      B4: \"#151719\"\n      B5: \"#151719\"\n      B6: \"#151719\"\n      N1: \"#ECEDED\"\n      N7: \"#151719\"\n      AA2: \"#ECEDED\"\n    }\n  }\n}\n\nstyle: {\n  fill: \"#151719\"\n}\ncom.ch.Transform -> com.ch.math.Matrix4f: {\n  target-arrowhead: \"imports\"\n  style: {\n    stroke: \"#26de81\"\n    stroke-dash: 3\n  }\n}\n\ncom.ch.Transform -> com.ch.math.Quaternion: {\n  target-arrowhead: \"imports\"\n  style: {\n    stroke: \"#26de81\"\n    stroke-dash: 3\n  }\n}\n\ncom.ch.Transform -> com.ch.math.Vector3f: {\n  target-arrowhead: \"imports\"\n  style: {\n    stroke: \"#26de81\"\n    stroke-dash: 3\n  }\n}\n\ncom.ch.Camera -> com.ch.Transform: {\n  style: {\n    stroke: \"#26de81\"\n  }\n}\n\ncom.ch.Transform <-> com.ch.math.Quaternion: {\n  style: {\n    stroke: \"#26de81\"\n  }\n}\n\ncom.ch.Transform -> com.ch.math.Matrix4f: {\n  style: {\n    stroke: \"#26de81\"\n  }\n}\n\ncom.ch.math.Vector3f <-> com.ch.Transform: {\n  style: {\n    stroke: \"#26de81\"\n  }\n}\n\ncom.ch.Camera: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    stroke-width: 0\n  }\n}\n\ncom.ch.math.Quaternion: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    stroke-width: 0\n  }\n}\n\ncom.ch.Transform: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    stroke-width: 0\n  }\n}\n\ncom.ch.math.Matrix4f: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    stroke-width: 0\n  }\n}\n\ncom.ch.math.Vector3f: {\n  style: {\n    font: mono\n    fill: \"#717D86\"\n    stroke-width: 0\n  }\n}\n\ncom.ch.Transform: {\n  style: {\n    fill: \"#26de81\"\n    font-color: \"#151719\"\n    stroke-width: 0\n  }\n}\n"
+        },
         "items": [
           {
-            "id": "0e69308f-aec7-4893-1348-35948de55f33",
+            "id": "f3c453ba-87b6-f086-e748-8bcfca178b6d",
             "ancestors": [],
-            "type": "function",
-            "description": "Is a flexible representation of a 3D object's position, rotation, and scale. It has an inheritance hierarchy with a parent transform, which allows for a tree-like structure of transforms. The class has methods for rotating, looking at a point, and updating its transformation matrix, as well as getting/setting the position, rotation, and scale. It also has a high-level update method that checks for changes in the transform and updates the necessary fields accordingly.",
+            "description": "Represents a mathematical transformation in 3D space, encapsulating properties such as position, rotation, and scale. It provides various methods to update, rotate, look at, and transform these properties, as well as utilities for getting the transformed positions and rotations. The class also supports hierarchical transformations through its parent-child relationship.",
             "name": "Transform",
             "location": {
               "start": 7,
@@ -1939,16 +1943,15 @@
             "docLength": null
           },
           {
-            "id": "63adea0a-cebc-298b-de40-b62210b41f23",
+            "id": "618a30a6-4031-2f93-3a40-30f6c0240e76",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Updates an object's position, rotation, and scale based on the current values and stores them as old values for future reference.",
+            "description": "Updates old positions, rotations, and scales if they differ from the current ones. If no old values exist, it creates new ones by copying the current values. The updated old values are then stored for future comparisons.",
             "params": [],
             "usage": {
               "language": "java",
-              "code": "public void update() {\n\tif (oldPos != null) { // if the old position is not null, we need to check if it has changed since last update\n\t\tif (!oldPos.equals(pos)) { // if the position has changed since last update, we set the old position to the current position\n\t\t\toldPos.set(pos);\n\t\t}\n\t\tif (!oldRot.equals(rot)) { // if the rotation has changed since last update, we set the old rotation to the current rotation\n\t\t\toldRot.set(rot);\n\t\t}\n\t\tif (!oldScale.equals(scale)) { // if the scale has changed since last update, we set the old scale to the current scale\n\t\t\toldScale.set(scale);\n\t\t}\n\t} else { // if the old position is null, we create new objects for each of them and set them to the current values\n\t\toldPos = new Vector3f().set(pos);\n\t\toldRot = new Quaternion().set(rot);\n\t\toldScale = new Vector3f().set(scale);\n\t}\n}\n",
+              "code": "Transform transform = new Transform();\ntransform.setPos(new Vector3f(1, 2, 3));\ntransform.setRot(new Quaternion().initFromAxisAngle(Vector3f.Y_AXIS, Math.toRadians(90)));\ntransform.setScale(new Vector3f(4, 5, 6));\n\ntransform.update();\n\n// transform's oldPos, oldRot and oldScale are updated with transform's current pos, rot, scale\n",
               "description": ""
             },
             "name": "update",
@@ -1964,29 +1967,28 @@
             "docLength": null
           },
           {
-            "id": "267357a8-1afa-db89-f947-270f63342ff6",
+            "id": "bad65646-3edd-9383-ac49-c08dc85a6298",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Multiplies a quaternion representing a rotation axis by a scalar angle and returns the resulting normalized quaternion.",
+            "description": "Applies a rotation to a quaternion-based orientation represented by `rot`. The rotation is specified by an axis and angle, which are used to create a new quaternion that is then multiplied with the existing one. The result is normalized to ensure proper orientation.",
             "params": [
               {
                 "name": "axis",
                 "type_name": "Vector3f",
-                "description": "3D rotation axis around which the rotation will be performed.",
+                "description": "3D vector defining the rotation axis around which the object is rotated by an angle specified by the `angle` parameter.",
                 "complex_type": false
               },
               {
                 "name": "angle",
                 "type_name": "float",
-                "description": "3D rotation angle around the axis specified by the `axis` parameter.",
+                "description": "3D rotation angle around the specified `axis`, which is used to compute a new quaternion by multiplying the current `rot` quaternion with the rotation axis and angle.",
                 "complex_type": false
               }
             ],
             "usage": {
               "language": "java",
-              "code": "Vector3f axis = new Vector3f(0, 1, 0); // The vector (0, 1, 0) represents the Y-axis\nfloat angle = 90.0F; // Rotate by 90 degrees\n\nTransform transform = new Transform();\ntransform.rotate(axis, angle);\n",
+              "code": "Transform transform = new Transform();\nVector3f axis = new Vector3f(0, 1, 0); // y-axis\nfloat angle = Math.PI / 2; // 90 degrees\ntransform.rotate(axis, angle);\n",
               "description": ""
             },
             "name": "rotate",
@@ -2002,29 +2004,28 @@
             "docLength": null
           },
           {
-            "id": "eea9b9ff-e106-d1a7-c74c-b479729ee926",
+            "id": "a21f61c1-07c7-bfae-8a49-9b44fe98f5cc",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Computes the rotation required to face a given point while maintaining a specified up vector.",
+            "description": "Calculates a rotation to face a specified `point` while keeping the upward direction aligned with `up`. The result is stored in `rot`, which represents the necessary rotation to achieve this orientation.",
             "params": [
               {
                 "name": "point",
                 "type_name": "Vector3f",
-                "description": "3D position that the agent should look at.",
+                "description": "3D location that the object is looking at or gazing towards.",
                 "complex_type": false
               },
               {
                 "name": "up",
                 "type_name": "Vector3f",
-                "description": "3D direction that the model should face after rotating around the specified `point`.",
+                "description": "3D vector that defines the upwards direction for the rotation calculation.",
                 "complex_type": false
               }
             ],
             "usage": {
               "language": "java",
-              "code": "public class Main {\n    public static void main(String[] args) {\n        Transform transform = new Transform();\n        Vector3f point = new Vector3f(0, 1, 0);\n        Vector3f up = new Vector3f(0, 0, 1);\n        transform.lookAt(point, up);\n    }\n}\n",
+              "code": "Transform transform = new Transform();\ntransform.lookAt(new Vector3f(1, 0, 0), new Vector3f(0, 1, 0));\n",
               "description": ""
             },
             "name": "lookAt",
@@ -2040,34 +2041,33 @@
             "docLength": null
           },
           {
-            "id": "12177d4c-c194-1880-404f-982cb7c9d329",
+            "id": "27495428-9fce-5d9b-a84d-cbbd0add542c",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Calculates a quaternion representing the rotation necessary to look at a point from a specific direction. It takes two vectors as input: `point` represents the point to look at, and `up` represents the direction of the view. The function returns a quaternion that rotates the object in the specified direction to face the given point.",
+            "description": "Calculates a quaternion representing a rotation from the current position to a specified point while keeping a specific direction (up) fixed. It takes two vectors, point and up, as input parameters and returns a new Quaternion object initialized with a rotation matrix calculated based on these vectors.",
             "params": [
               {
                 "name": "point",
                 "type_name": "Vector3f",
-                "description": "3D point of interest around which the look-at rotation is to be computed.",
+                "description": "3D vector from the origin to the target point, used to calculate the rotation matrix for the quaternion.",
                 "complex_type": false
               },
               {
                 "name": "up",
                 "type_name": "Vector3f",
-                "description": "3D vector that defines the orientation of the look-at axis.",
+                "description": "3D vector that defines the direction of the up-axis for the rotation, used to determine the orientation of the resulting quaternion.",
                 "complex_type": false
               }
             ],
             "returns": {
               "type_name": "Quaternion",
-              "description": "a Quaternion representation of the rotation required to face a specified point in space while maintaining a fixed orientation with respect to a provided up vector.",
+              "description": "a `Quaternion` object representing a rotation.",
               "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "Transform transform = new Transform(); // Creating a new transform object. \nVector3f targetPos = new Vector3f(1, 0, 0); // Setting the target position to (1, 0, 0) from (0, 0, 0). \nVector3f upVector = new Vector3f(0, 1, 0); // Setting the up vector to (0, 1, 0) from (0, 0, 0). \ntransform.lookAt(targetPos, upVector); \nQuaternion rot = transform.getLookAtRotation(targetPos, upVector); // Retrieving the rotation of the object at this target position. \n",
+              "code": "Transform transform = new Transform();\nVector3f point = new Vector3f(1, 0, 0);\nVector3f up = new Vector3f(0, 1, 0);\n\nQuaternion lookAtRotation = transform.getLookAtRotation(point, up);\n",
               "description": ""
             },
             "name": "getLookAtRotation",
@@ -2083,22 +2083,21 @@
             "docLength": null
           },
           {
-            "id": "6e30cda5-4223-08aa-2144-b802fc745582",
+            "id": "6f7a93c0-02e7-6089-5347-158faf54e239",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Checks if an object's properties have changed by comparing them to their previous values. If any property has changed, the function returns `true`. Otherwise, it returns `false`.",
+            "description": "Checks whether a node has changed by comparing its position, rotation, and scale with their previous values and also checks if its parent node has changed. If any of these conditions are met, it returns `true`; otherwise, it returns `false`.",
             "params": [],
             "returns": {
               "type_name": "boolean",
-              "description": "a boolean value indicating whether the object has changed.",
+              "description": "a boolean indicating whether any object properties have changed.",
               "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "Transform transform = new Transform();\ntransform.setPos(new Vector3f(1, 2, 3));\ntransform.setRot(new Quaternion(0, 1, 0, 0));\ntransform.setScale(new Vector3f(2, 2, 2));\ntransform.update();\nSystem.out.println(transform.hasChanged()); // true\n",
-              "description": "\nThe example code creates a new Transform object and sets its position, rotation, and scale using the setPos, setRot, and setScale methods. It then calls the update method to update the old variables with the current ones. Finally, it checks if the transform has changed by calling the hasChanged method, which returns true since the position, rotation, and scale have been updated."
+              "code": "Transform t = new Transform();\nt.setPos(new Vector3f(1, 2, 3));\nt.setRot(new Quaternion().initFromAxisAngle(new Vector3f(0, 0, 1), Math.PI / 4));\nt.setScale(new Vector3f(2, 2, 2));\n\nSystem.out.println(t.hasChanged()); // prints true\n\nt.setPos(new Vector3f(1, 2, 3)); // unchanged\nSystem.out.println(t.hasChanged()); // prints false",
+              "description": ""
             },
             "name": "hasChanged",
             "location": {
@@ -2113,22 +2112,21 @@
             "docLength": null
           },
           {
-            "id": "2badb936-8a76-509d-5d47-e9d37acd4baa",
+            "id": "28c924f1-2f93-f59f-5b4a-beb9f3c3a3d7",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Computes a transformation matrix based on position, rotation, and scale values, and returns it as a Matrix4f object.",
+            "description": "Combines translation, rotation, and scaling transformations into a single matrix, returning the result as a product of four matrices: a translation matrix based on position coordinates, a rotation matrix from a rotational object, a scale matrix with scale factors, and a parent matrix.",
             "params": [],
             "returns": {
               "type_name": "Matrix4f",
-              "description": "a transformed matrix representing the combination of translation, rotation, and scaling.",
+              "description": "a combined transformation matrix.",
               "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "Transform myObject = new Transform();\n// Set position, rotation, and scale of the object\nmyObject.setPos(new Vector3f(10, 5, -3));\nmyObject.setRot(new Quaternion(1, 0, 0, 0));\nmyObject.setScale(new Vector3f(2, 2, 2));\n// Get the transformation matrix of the object\nMatrix4f myTransformation = myObject.getTransformation();\n",
-              "description": "\nIn this example, we create a new transform object and set its position, rotation, and scale using the setter methods provided by the class. We then retrieve the transformation matrix of the object using the getTransformation method and store it in the myTransformation variable. The transformation matrix is calculated based on the position, rotation, and scale of the object, as well as the parent matrix if applicable."
+              "code": "Transform transform = new Transform();\nMatrix4f transformation = transform.getTransformation();\n",
+              "description": ""
             },
             "name": "getTransformation",
             "location": {
@@ -2143,22 +2141,21 @@
             "docLength": null
           },
           {
-            "id": "7d93b10b-8c65-b7bf-c44e-db8ba9167507",
+            "id": "27d03f69-5f28-2086-984f-1d6998646a74",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Retrieves and returns the transformation matrix of the parent node in a hierarchical tree structure, taking into account any changes made to the parent node's transformation.",
+            "description": "Returns a matrix representing the transformation of the object's parent, if it exists and has changed since the last update. It updates its internal state with the parent's transformation matrix when necessary.",
             "params": [],
             "returns": {
               "type_name": "Matrix4f",
-              "description": "a Matrix4f object representing the parent transformation matrix.",
+              "description": "a `Matrix4f` object representing the parent's transformation.",
               "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "Transform child = new Transform();\nchild.setParent(parent);\nchild.update();\nchild.getTransformation();\n",
-              "description": "\nIn this example, we first create a `Transform` object named \"child\" and set its parent to the parent `Transform`. We then update the child `Transform` by calling the `update()` method, which updates its position, rotation, and scale based on its parent's transformation matrix. Finally, we call the `getTransformation()` method on the child `Transform` to retrieve its transformation matrix, which includes the parent's transformation matrix as well as the child's own position, rotation, and scale transformations."
+              "code": "Transform child = new Transform();\nchild.setPos(new Vector3f(1, 2, 3));\nchild.setScale(new Vector3f(4, 5, 6));\n\nTransform parent = new Transform();\nparent.setPos(new Vector3f(-1, -2, -3));\nparent.setScale(new Vector3f(7, 8, 9));\n\nchild.setParent(parent);\n\n// At this point child's parentMatrix is calculated as parent's transformation times translation matrix\n",
+              "description": ""
             },
             "name": "getParentMatrix",
             "location": {
@@ -2173,24 +2170,23 @@
             "docLength": null
           },
           {
-            "id": "5f4ec058-52b4-a2bb-664e-e36a0248263a",
+            "id": "bbbcbf30-e5dd-6f92-5141-2bcf93a15cdb",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Sets the parent transform of an object, storing the new value in the `parent` field.",
+            "description": "Assigns a value to the instance variable `parent`. This variable is expected to hold an object of type `Transform`, which is presumably a parent or container of some kind. The assignment updates the internal state of the object, linking it to its new parent.",
             "params": [
               {
                 "name": "parent",
                 "type_name": "Transform",
-                "description": "Transform object that will serve as the new parent of the current Transform object.",
+                "description": "Transform object that is assigned to the `this.parent` field, establishing a reference to the parent Transform for further processing.",
                 "complex_type": false
               }
             ],
             "usage": {
               "language": "java",
-              "code": "Transform child = new Transform();\nTransform parent = new Transform();\nchild.setParent(parent);\n",
-              "description": ""
+              "code": "Transform child = new Transform();\nchild.setParent(new Transform());\n",
+              "description": "\nIn this example, the `child` transform has its parent set to another `Transform`."
             },
             "name": "setParent",
             "location": {
@@ -2205,21 +2201,20 @@
             "docLength": null
           },
           {
-            "id": "d41e0603-297a-ea98-6945-68da7d34c6c4",
+            "id": "2ea04a28-c0cf-1bab-1841-cf372d37a15a",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Takes a `Vector3f` object as input and returns its transformed position after applying a transformation matrix provided by the parent matrix.",
+            "description": "Multiplies a position (`pos`) by a parent matrix using the `getParentMatrix` and `transform` methods, returning the resulting transformed position as a `Vector3f`. This operation applies a transformation to the original position based on the parent's coordinate system.",
             "params": [],
             "returns": {
               "type_name": "Vector3f",
-              "description": "a transformed position vector in the form of a `Vector3f`.",
+              "description": "a transformed vector position based on the parent matrix.",
               "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "public class MyClass {\n    private Transform transform;\n    public void myMethod() {\n        Vector3f transformedPos = transform.getTransformedPos();\n    }\n}\n",
+              "code": "Transform t = new Transform();\nt.setPos(new Vector3f(0, 0, 10));\nt.setParent(new Transform());\nSystem.out.println(t.getTransformedPos());",
               "description": ""
             },
             "name": "getTransformedPos",
@@ -2235,21 +2230,20 @@
             "docLength": null
           },
           {
-            "id": "013c1142-64be-17a0-2a42-3f8642b8d17f",
+            "id": "b41f9a0f-0e23-8896-f748-7e5a7e68bc99",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Multiplies a given quaternion `rot` by the parent rotation, which is initially set to the identity quaternion and later updated based on the value of `parent`. The resulting transformed quaternion is returned.",
+            "description": "Calculates a quaternion representing the combined rotation of an object and its parent, if any. It starts with a default quaternion as the parent's rotation, overrides it with the actual parent's rotation if one exists, and then multiplies it by the object's own rotation to produce the final result.",
             "params": [],
             "returns": {
               "type_name": "Quaternion",
-              "description": "a Quaternion representing the rotated transformation of the parent object relative to its original rotation.",
+              "description": "a Quaternion object resulting from multiplying `rot` with `parentRotation`.",
               "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "Transform transform = new Transform();\ntransform.setPos(new Vector3f(0, 0, 0));\ntransform.setRot(new Quaternion(1, 0, 0, 0));\ntransform.setScale(new Vector3f(1, 1, 1));\ntransform.rotate(Vector3f.up(), 90);\nQuaternion q = transform.getTransformedRot();\n",
+              "code": "Transform child = new Transform();\nchild.setPos(new Vector3f(1, 2, 3));\nchild.setRot(new Quaternion(0, 0, 0, 1));\n\nTransform parent = new Transform();\nparent.setPos(new Vector3f(4, 5, 6));\nQuaternion parentRotation = new Quaternion(0, 0, 0, 1);\nparent.setRot(parentRotation);\n\nchild.setParent(parent);\n\nQuaternion childTransRot = child.getTransformedRot();\n\n",
               "description": ""
             },
             "name": "getTransformedRot",
@@ -2265,21 +2259,20 @@
             "docLength": null
           },
           {
-            "id": "4ab2faad-1efb-2f85-d54a-abb847f9a834",
+            "id": "8f27736a-92a7-aeb0-2a4b-f8af9dee0a47",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Returns the position of an object as a `Vector3f` structure.",
+            "description": "Retrieves a `Vector3f` object representing the position. This function returns a reference to an existing object, indicating that it does not create or modify any data but merely provides access to it. The returned value is a read-only representation of the position.",
             "params": [],
             "returns": {
               "type_name": "Vector3f",
-              "description": "a `Vector3f` object containing the position of the entity.",
+              "description": "a `Vector3f` object representing the position.",
               "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "// Get the current position of this transform.\nVector3f pos = myTransform.getPos();\n",
+              "code": "Transform t = new Transform();\nt.setPos(new Vector3f(1, 2, 3));\nVector3f pos = t.getPos();\n",
               "description": ""
             },
             "name": "getPos",
@@ -2295,24 +2288,23 @@
             "docLength": null
           },
           {
-            "id": "c3d5b1bb-7e5e-a5bd-c247-54f590b32acc",
+            "id": "654d66f5-446d-7e92-e648-d91d44c73b9c",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Sets the position of an object to a specified Vector3f value.",
+            "description": "Updates the current position of an object to a new value provided by the `Vector3f` parameter. This parameter represents the new position in three-dimensional space, consisting of x, y, and z coordinates. The updated position is stored within the object for future reference.",
             "params": [
               {
                 "name": "pos",
                 "type_name": "Vector3f",
-                "description": "3D position of an object or entity in the function `setPos`.",
+                "description": "3D position to be assigned to the object's current position.",
                 "complex_type": false
               }
             ],
             "usage": {
               "language": "java",
-              "code": "// Create a Vector3f object to store the new position value\nVector3f pos = new Vector3f(1, 2, 3);\n\n// Set the position of the transform object to the new value\ntransform.setPos(pos);\n",
-              "description": "\nIn this example, we first create a `Vector3f` object to store the new position value. We then pass this `Vector3f` object as an argument to the `setPos` method of the `Transform` class, which sets the position of the transform object to the new value."
+              "code": "Vector3f newpos = new Vector3f(1, 2, 3);\ntransform.setPos(newpos);\n",
+              "description": ""
             },
             "name": "setPos",
             "location": {
@@ -2327,21 +2319,20 @@
             "docLength": null
           },
           {
-            "id": "bfc46089-193c-cba7-ea4e-4dd3587afebe",
+            "id": "cb4c2934-53fb-c0ac-b642-eb27153f25df",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Returns a `Quaternion` object representing the rotation of an entity.",
+            "description": "Returns a Quaternion object named `rot`. The returned object represents a rotation and is accessible through this method. This allows external code to retrieve and utilize the stored rotational data.",
             "params": [],
             "returns": {
               "type_name": "Quaternion",
-              "description": "a Quaternion object representing the rotation of the game object.",
+              "description": "a Quaternion object named `rot`.",
               "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "Transform myTransform = new Transform();\nmyTransform.setPos(new Vector3f(1, 2, 3));\nmyTransform.setRot(new Quaternion(0, 1, 0, 0));\nSystem.out.println(myTransform.getRot()); // output: (0, 1, 0, 0)\n",
+              "code": "Transform transform = new Transform();\nQuaternion rotation = transform.getRot();",
               "description": ""
             },
             "name": "getRot",
@@ -2357,23 +2348,22 @@
             "docLength": null
           },
           {
-            "id": "329cf28f-525f-38b5-3440-91685f672279",
+            "id": "69ae25de-41c0-5c90-394c-d5e51bb8683c",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Sets the object's rotation state to the provided `Quaternion` value.",
+            "description": "Sets a Quaternion object representing the rotation to an instance variable `rot`. This variable is then updated with the provided rotation value. The function updates the internal state of the object with the new rotation information.",
             "params": [
               {
                 "name": "rotation",
                 "type_name": "Quaternion",
-                "description": "4D quaternion value that updates the rotational orientation of the object instance being represented by the `this` reference.",
+                "description": "4D quaternion value that is assigned to the instance variable `rot`.",
                 "complex_type": false
               }
             ],
             "usage": {
               "language": "java",
-              "code": "Transform transform = new Transform();\ntransform.setPos(new Vector3f(1, 2, 3));\nQuaternion rotation = new Quaternion(0.5, 0.6, 0.7, 0.8);\ntransform.setRot(rotation);\n",
+              "code": "Transform transform = new Transform();\nQuaternion rotation = new Quaternion(0, 1, 0, Math.PI / 2);\ntransform.setRot(rotation);\n",
               "description": ""
             },
             "name": "setRot",
@@ -2389,22 +2379,21 @@
             "docLength": null
           },
           {
-            "id": "76a1d2df-5d5e-8db8-664d-95cff95e7449",
+            "id": "c7a1a0f2-5486-1bb9-4f4d-43aa2d318668",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Returns the current scale value of a `Vector3f` object.",
+            "description": "Returns a `Vector3f` object representing the scale value. The returned vector contains the x, y, and z components of the scale factor. The function provides read-only access to the scale value without modifying it.",
             "params": [],
             "returns": {
               "type_name": "Vector3f",
-              "description": "a `Vector3f` object containing the scaling factors for the model.",
+              "description": "a `Vector3f` object representing the scale of an object.",
               "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "Transform transform = new Transform();\nVector3f scale = transform.getScale();\n",
-              "description": "\nThis example instantiates a Transform object and then retrieves its scale vector using the getScale() method, which returns the scale of the transformation in a Vector3f format."
+              "code": "Transform transform = new Transform();\nVector3f scale = transform.getScale();",
+              "description": ""
             },
             "name": "getScale",
             "location": {
@@ -2419,23 +2408,22 @@
             "docLength": null
           },
           {
-            "id": "bde4b62d-962d-0495-7d41-e8e35e03f6f0",
+            "id": "ba18e3cc-4148-859b-9e41-ae1df4f85f5f",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Sets the scale of an object, which affects its size and shape.",
+            "description": "Assigns a new value to the instance variable `scale`, which is expected to be an object of type `Vector3f`. This function does not perform any calculations or operations on the input, it simply updates the internal state of the class. The new scale vector replaces the previous one.",
             "params": [
               {
                 "name": "scale",
                 "type_name": "Vector3f",
-                "description": "3D scaling factor for the object being modeled.",
+                "description": "3D vector used to modify the object's size in the scene.",
                 "complex_type": false
               }
             ],
             "usage": {
               "language": "java",
-              "code": "public class Main {\n    public static void main(String[] args) {\n        Transform transform = new Transform();\n        Vector3f scale = new Vector3f(2, 2, 2);\n        transform.setScale(scale);\n    }\n}\n",
+              "code": "Vector3f newScale = new Vector3f(2, 3, 4);\ntransform.setScale(newScale);\n",
               "description": ""
             },
             "name": "setScale",
@@ -2451,22 +2439,21 @@
             "docLength": null
           },
           {
-            "id": "76714744-0d40-d087-d94e-4ccaf3fd33b5",
+            "id": "07459678-c44c-8c85-294e-09a2c36692a0",
             "ancestors": [
-              "0e69308f-aec7-4893-1348-35948de55f33"
+              "f3c453ba-87b6-f086-e748-8bcfca178b6d"
             ],
-            "type": "function",
-            "description": "Returns an empty string for any input.",
+            "description": "Returns an empty string when called. This implies that the object represented by the class is intended to be unprintable or does not have a meaningful string representation.",
             "params": [],
             "returns": {
-              "type_name": "empty",
+              "type_name": "string",
               "description": "an empty string.",
               "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "public class Main {\n\tpublic static void main(String[] args) {\n\t\tTransform transform = new Transform();\n\t\ttransform.setPos(new Vector3f(1, 2, 3));\n\t\ttransform.setRot(new Quaternion(1, 0, 0, 0));\n\t\ttransform.setScale(new Vector3f(4, 5, 6));\n\t\tSystem.out.println(transform);\n\t}\n}\n",
-              "description": "\nThe above code creates a new instance of the Transform class and sets its position, rotation, and scale using the respective setter methods. The `toString` method is then called on the transform object to get a string representation of the object, which is printed to the console."
+              "code": "Transform transform = new Transform();\nSystem.out.println(transform.toString());\n",
+              "description": ""
             },
             "name": "toString",
             "location": {
