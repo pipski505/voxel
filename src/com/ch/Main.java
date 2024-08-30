@@ -13,19 +13,19 @@ import com.ch.math.Vector3f;
 import com.ch.voxel.World;
 
 /**
- * Initializes the display and OpenGL settings in initDisplay and initGL respectively.
- * The loop method contains the game's main rendering loop that continuously updates
- * and renders the scene until the user closes the window or presses the escape key.
+ * Initializes and sets up an OpenGL display, loads necessary resources such as shaders
+ * and textures, creates a camera and world objects, and enters a rendering loop that
+ * updates and renders the scene continuously. It also handles input and exit conditions.
+ * The loop continues until the user closes the window or presses the escape key.
  */
 public class Main {
 	
 	/**
-	 * Initializes a display, sets up OpenGL, enters an application loop, and exits with
-	 * a status code of 0 upon completion of the loop. It is the entry point for the
-	 * program's execution sequence. The loop likely contains the main application logic.
+	 * Initializes display and OpenGL, enters a loop, and then exits with a status code
+	 * of 0 upon completion.
 	 *
-	 * @param args command-line arguments passed to the Java application when it is
-	 * executed, allowing for external input and configuration.
+	 * @param args command-line arguments passed to the program when it is executed,
+	 * allowing for external parameters to be received by the main method.
 	 */
 	public static void main(String[] args) {
 		
@@ -44,10 +44,10 @@ public class Main {
 	private static World w;
 	
 	/**
-	 * Initializes a display mode with resolution 1920x1080, creates a pixel format and
-	 * context with forward-compatible and profile-core enabled attributes, enables VSync,
-	 * and prints the OpenGL version to the console. It catches LWJGL exceptions and
-	 * prints their stack traces if they occur.
+	 * Initializes a display with specific settings and creates an OpenGL context. It
+	 * sets the display mode to 1920x1080, enables VSync, and prints the OpenGL version
+	 * to the console. If an error occurs, it catches and handles the exception by printing
+	 * the stack trace.
 	 */
 	private static void initDisplay() {
 		try {
@@ -61,10 +61,9 @@ public class Main {
 	}
 	
 	/**
-	 * Initializes various OpenGL settings and scene elements. It sets clear color, enables
-	 * face culling and depth testing, loads a shader and texture, and creates camera,
-	 * world, and model objects with default properties. The function prepares the
-	 * environment for rendering.
+	 * Initializes the OpenGL environment by setting the clear color and enabling face
+	 * culling and depth testing. It loads shaders, textures, and a world model, and sets
+	 * up a camera object with its position at (0, 0, 0).
 	 */
 	private static void initGL() {
 		
@@ -109,10 +108,9 @@ public class Main {
 	}
 	
 	/**
-	 * Runs a continuous game loop, updating and rendering graphics while checking for
-	 * user input to terminate or close the display. The loop continues until the user
-	 * closes the display or presses the escape key. It displays the current FPS and
-	 * memory usage on the title bar.
+	 * Runs a game loop until it is manually closed or the escape key is pressed. It
+	 * updates and renders the game state, displaying the current FPS and memory usage.
+	 * The game loop iterates at a variable rate determined by the `Timer.getDelta()` method.
 	 */
 	private static void loop() {
 		
@@ -137,13 +135,12 @@ public class Main {
 	}
 	
 	/**
-	 * Processes input and updates an object's position using a transformation.
-	 * Input is processed with a delay and smoothing factor by calling `c.processInput`.
-	 * Position update occurs through a call to `w.updatePos`, passing current transform
-	 * coordinates.
+	 * Processes user input and updates game state based on elapsed time (`dt`). It calls
+	 * two methods: `processInput` to handle user input, and `updatePos` to update the
+	 * position of an object (`w`) based on the current camera transformation.
 	 *
-	 * @param dt time delta, or the elapsed time since the last update, used to scale
-	 * game logic and physics updates.
+	 * @param dt time difference between the current and previous frames, used to update
+	 * game logic and physics at consistent intervals.
 	 */
 	private static void update(float dt) {
 		c.processInput(dt, 5, .3f);
@@ -151,10 +148,9 @@ public class Main {
 	}
 
 	/**
-	 * Binds a shader resource and renders objects using a worker object, passing it a
-	 * shader and a camera to draw models with their view-projection matrices applied.
-	 * The commented-out code previously rendered a 3D cube by generating multiple colors
-	 * and model matrices.
+	 * Binds a shader object and renders 3D content using a window rendering component.
+	 * It enables or disables certain attributes depending on commented code sections.
+	 * The `w.render(s, c)` method is called to perform the actual rendering operation.
 	 */
 	private static void render() {
 		
@@ -178,13 +174,12 @@ public class Main {
 	}
 	
 	/**
-	 * Terminates the Java application with a specified exit status using the `System.exit`
-	 * method. The status code is passed as an argument to indicate the reason for
-	 * termination. This allows for controlled program shutdown with error codes.
+	 * Terminates the Java application and exits the virtual machine with a specified
+	 * status code. It delegates its execution to the native `System.exit` method, passing
+	 * the provided status as an argument.
 	 *
-	 * @param status 16-bit integer value that is passed to System.exit(), indicating the
-	 * program's termination status, with lower values typically representing successful
-	 * execution and higher values signifying errors or exceptions.
+	 * @param status 32-bit integer value that indicates the termination status of the
+	 * Java application to be returned to the operating system.
 	 */
 	private static void exit(int status) {
 		System.exit(status);
