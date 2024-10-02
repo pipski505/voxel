@@ -8,9 +8,8 @@ import com.ch.math.Matrix4f;
 import com.ch.math.Vector3f;
 
 /**
- * Represents a camera object in a 3D environment, handling projection and view matrix
- * calculations, as well as adjusting to the viewport. It also processes user input,
- * including mouse and keyboard events, to control the camera's rotation and movement.
+ * Handles camera movement and projection matrix calculation based on user input and
+ * viewport size.
  */
 public class Camera3D extends Camera {
 
@@ -21,13 +20,15 @@ public class Camera3D extends Camera {
 	}
 
 	/**
-	 * Returns a 4x4 projection matrix based on input from a `CameraStruct`. The input
-	 * is directly assigned to the `projection` variable and returned as the output.
-	 * 
-	 * @param data 4x4 matrix that is used to create the projection matrix, which is then
-	 * returned by the function.
-	 * 
-	 * @returns a `Matrix4f` object representing the projection matrix.
+	 * Calculates and returns a 4x4 projection matrix based on the provided `CameraStruct`
+	 * data. It assigns the calculated projection matrix to a local variable and returns
+	 * the original matrix from the `CameraStruct` data. The projection matrix is stored
+	 * in a variable named `projection`.
+	 *
+	 * @param data camera settings, which are converted to a projection matrix using the
+	 * `getAsMatrix4()` method.
+	 *
+	 * @returns a `Matrix4f` object representing the camera's projection matrix.
 	 */
 	@Override
 	public Matrix4f calculateProjectionMatrix(CameraStruct data) {
@@ -35,16 +36,16 @@ public class Camera3D extends Camera {
 	}
 
 	/**
-	 * Sets the aspect ratio of a camera and calculates its projection matrix and view
-	 * matrix based on the provided viewport dimensions. It also sets up the OpenGL
-	 * viewport to match the specified width and height, handling potential null pointer
-	 * exceptions.
-	 * 
-	 * @param width 2D viewport width that determines the aspect ratio for the camera's
-	 * projection matrix.
-	 * 
-	 * @param height height of the viewport and is used to calculate the aspect ratio and
-	 * update the glViewport function.
+	 * Adjusts the camera's aspect ratio and projection matrix based on the provided
+	 * viewport dimensions, and updates the view matrix, while handling potential
+	 * `NullPointerException` exceptions. The function also sets the OpenGL viewport to
+	 * the specified dimensions.
+	 *
+	 * @param width new viewport width, which is used to set the camera's aspect ratio
+	 * and update the viewport.
+	 *
+	 * @param height height of the viewport, used to calculate the aspect ratio for the
+	 * camera projection.
 	 */
 	@Override
 	public void adjustToViewport(int width, int height) {
@@ -58,9 +59,7 @@ public class Camera3D extends Camera {
 	}
 
 	/**
-	 * Is an extension of the CameraStruct class that represents a camera configuration
-	 * for a 3D perspective projection. It encapsulates parameters necessary to initialize
-	 * a projection matrix.
+	 * Represents a 3D camera projection configuration.
 	 */
 	protected class CameraStruct3D extends CameraStruct {
 
@@ -74,12 +73,9 @@ public class Camera3D extends Camera {
 		}
 
 		/**
-		 * Initializes a perspective matrix with the given field-of-view (fov), aspect ratio
-		 * (aspect), and near/far clipping planes (zNear, zFar) before returning it as a
-		 * Matrix4f object. This matrix is used for transformations in computer graphics or
-		 * other applications.
-		 * 
-		 * @returns a perspective projection matrix.
+		 * Returns a new perspective projection matrix.
+		 *
+		 * @returns a 4x4 matrix representing a perspective projection transformation.
 		 */
 		public Matrix4f getAsMatrix4() {
 			return new Matrix4f().initPerspective(fov, aspect, zNear, zFar);
@@ -88,19 +84,18 @@ public class Camera3D extends Camera {
 	}
 
 	/**
-	 * Updates the object's rotation and movement based on user input from mouse and
-	 * keyboard. It adjusts the rotation according to mouse movements, and moves the
-	 * object forward, backward, left, or right based on keyboard key presses, with
-	 * optional speed boost for shift key.
-	 * 
-	 * @param dt 3D time delta used to calculate the movement amount based on the speed.
-	 * 
-	 * @param speed 3D movement speed of an object, which is multiplied by the delta time
-	 * (`dt`) to calculate the actual movement amount and is adjusted based on the shift
-	 * key being pressed.
-	 * 
-	 * @param sens sensitivity of mouse rotation, affecting the amount of rotation around
-	 * the Y-axis and X-axis based on the mouse movement.
+	 * Rotates the object based on mouse movement and updates its position in 3D space
+	 * based on keyboard input. It also scales the movement speed by 10 when the left
+	 * shift key is pressed. The movement is relative to the object's orientation.
+	 *
+	 * @param dt delta time, or the change in time since the last frame, used to calculate
+	 * the movement amount.
+	 *
+	 * @param speed movement speed of the object, which is used to calculate the movement
+	 * amount.
+	 *
+	 * @param sens sensitivity of the mouse controls, affecting the rotation speed of the
+	 * object.
 	 */
 	public void processInput(float dt, float speed, float sens) {
 
@@ -127,15 +122,14 @@ public class Camera3D extends Camera {
 	}
 
 	/**
-	 * Modifies the position of an object by adding a specified vector to its current
-	 * position, scaled by a given amount. The new position is calculated by multiplying
-	 * the direction vector with the amplitude and then adding it to the original position.
-	 * 
-	 * @param dir 3D direction vector that is scaled by the `amt` value and added to the
-	 * current position of an object, resulting in its movement.
-	 * 
-	 * @param amt scalar amount by which the direction vector `dir` is multiplied to
-	 * determine the displacement of the position.
+	 * Updates the position of an object by adding a specified amount to its current
+	 * position in a given direction. The direction and amount are multiplied together
+	 * to calculate the new position. The new position is then set as the object's position.
+	 *
+	 * @param dir direction in which movement occurs.
+	 *
+	 * @param amt amount of movement, scaling the direction vector to determine the
+	 * distance to move.
 	 */
 	private void move(Vector3f dir, float amt) {
 		getTransform().setPos(getTransform().getPos().add(dir.mul(amt)));
