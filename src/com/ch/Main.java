@@ -13,20 +13,16 @@ import com.ch.math.Vector3f;
 import com.ch.voxel.World;
 
 /**
- * Initializes and sets up display and OpenGL settings, then enters a main loop where
- * it updates game state and renders graphics continuously until user requests exit.
- * It handles input and displays performance metrics on the window title bar.
+ * Establishes an OpenGL environment, initializes graphics settings, and enters a
+ * game loop.
  */
 public class Main {
 	
 	/**
-	 * Initializes display and OpenGL, then enters a loop before exiting the program with
-	 * code 0. It sets up the necessary components for a graphics application to run
-	 * smoothly before terminating normally. The loop is likely where game logic or
-	 * rendering occurs.
+	 * Initializes the display, sets up OpenGL, enters a loop, and then terminates the
+	 * program with exit code 0.
 	 *
-	 * @param args command line arguments passed to the Java application, but it is not
-	 * used in this code snippet as its value is ignored by the main method.
+	 * @param args command-line arguments passed to the program.
 	 */
 	public static void main(String[] args) {
 		
@@ -45,10 +41,9 @@ public class Main {
 	private static World w;
 	
 	/**
-	 * Initializes display settings for a Java application, setting the screen resolution
-	 * to 1920x1080 and enabling vertical synchronization (VSync). It also creates an
-	 * OpenGL context with specific attributes and prints the OpenGL version to the
-	 * console. The function catches any LWJGL exceptions that may occur during initialization.
+	 * Initializes display settings, sets display mode to 1920x1080, creates a display
+	 * with specified pixel format and context attributes, enables VSync, and prints
+	 * OpenGL version.
 	 */
 	private static void initDisplay() {
 		try {
@@ -62,9 +57,9 @@ public class Main {
 	}
 	
 	/**
-	 * Initializes OpenGL settings and loads various components for a 3D application. It
-	 * sets clear color, enables culling and depth testing, creates a camera, shader,
-	 * texture, and world object, and generates initial positions for the camera.
+	 * Initializes the OpenGL environment by setting the clear color, enabling face culling
+	 * and depth testing, loading shaders and textures, and creating a camera and a world
+	 * object.
 	 */
 	private static void initGL() {
 		
@@ -109,9 +104,9 @@ public class Main {
 	}
 	
 	/**
-	 * Runs indefinitely until a close request or escape key is detected. It updates game
-	 * state, clears and renders graphics, displays FPS, memory usage, and timer delta.
-	 * The process repeats at regular intervals determined by the Timer update.
+	 * Maintains a game loop, continuously updating and rendering the game until the
+	 * window is closed or the ESC key is pressed. It displays the current FPS, memory
+	 * usage, and updates the game state.
 	 */
 	private static void loop() {
 		
@@ -136,13 +131,10 @@ public class Main {
 	}
 	
 	/**
-	 * Processes game input, updates a camera's position using world coordinates, and
-	 * applies transformations based on the camera's current state. It takes a time
-	 * interval `dt` as input. The function is designed for use with a game or simulation
-	 * that requires continuous update processing.
+	 * Processes input with a given time step, updates an object's position based on its
+	 * current transform.
 	 *
-	 * @param dt time elapsed since the last update, used to regulate the game's frame
-	 * rate and physics simulation.
+	 * @param dt time interval since the last update, used to pace the game logic.
 	 */
 	private static void update(float dt) {
 		c.processInput(dt, 5, .3f);
@@ -150,12 +142,9 @@ public class Main {
 	}
 
 	/**
-	 * Binds a shader to a surface and renders content using it. The rendering is performed
-	 * on a single object `w`, which presumably contains game or application-specific
-	 * logic for drawing graphical elements, such as models.
-	 *
-	 * The commented-out code suggests an alternative approach involving color and position
-	 * variation of multiple objects.
+	 * Binds a shader and renders a scene, specifically a 3D model. It appears to be a
+	 * simplified version of a 3D rendering function, rendering a single scene with a
+	 * fixed shader and model.
 	 */
 	private static void render() {
 		
@@ -179,13 +168,10 @@ public class Main {
 	}
 	
 	/**
-	 * Terminates the Java application with a specified exit status. It delegates the
-	 * actual termination to the built-in `System.exit` method, passing the provided
-	 * status code as an argument. The application is shut down immediately after execution
-	 * of this statement.
+	 * Terminates the Java application with a specified status code. The status code is
+	 * passed as an argument to the `System.exit` method, which then terminates the application.
 	 *
-	 * @param status 0 to 255 status code returned by Java when the process terminates,
-	 * indicating successful or unsuccessful program execution.
+	 * @param status exit status of the program, indicating the result of its execution.
 	 */
 	private static void exit(int status) {
 		System.exit(status);
