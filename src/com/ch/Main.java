@@ -12,8 +12,18 @@ import org.lwjgl.opengl.PixelFormat;
 import com.ch.math.Vector3f;
 import com.ch.voxel.World;
 
+/**
+ * Establishes an OpenGL environment, initializes graphics settings, and enters a
+ * game loop.
+ */
 public class Main {
 	
+	/**
+	 * Initializes the display, sets up OpenGL, enters a loop, and then terminates the
+	 * program with exit code 0.
+	 *
+	 * @param args command-line arguments passed to the program.
+	 */
 	public static void main(String[] args) {
 		
 		initDisplay();
@@ -30,6 +40,11 @@ public class Main {
 //	private static Chunk[][][] ch;
 	private static World w;
 	
+	/**
+	 * Initializes display settings, sets display mode to 1920x1080, creates a display
+	 * with specified pixel format and context attributes, enables VSync, and prints
+	 * OpenGL version.
+	 */
 	private static void initDisplay() {
 		try {
 			Display.setDisplayMode(new DisplayMode(1920, 1080));
@@ -41,6 +56,11 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Initializes the OpenGL environment by setting the clear color, enabling face culling
+	 * and depth testing, loading shaders and textures, and creating a camera and a world
+	 * object.
+	 */
 	private static void initGL() {
 		
 		GL11.glClearColor(0.1f, 0.7f, 1f, 1);
@@ -83,6 +103,11 @@ public class Main {
 		
 	}
 	
+	/**
+	 * Maintains a game loop, continuously updating and rendering the game until the
+	 * window is closed or the ESC key is pressed. It displays the current FPS, memory
+	 * usage, and updates the game state.
+	 */
 	private static void loop() {
 		
 		Timer.init();
@@ -105,11 +130,22 @@ public class Main {
 		
 	}
 	
+	/**
+	 * Processes input with a given time step, updates an object's position based on its
+	 * current transform.
+	 *
+	 * @param dt time interval since the last update, used to pace the game logic.
+	 */
 	private static void update(float dt) {
 		c.processInput(dt, 5, .3f);
 		w.updatePos(c.getTransform().getPos().getX(), c.getTransform().getPos().getY(), c.getTransform().getPos().getZ());
 	}
 
+	/**
+	 * Binds a shader and renders a scene, specifically a 3D model. It appears to be a
+	 * simplified version of a 3D rendering function, rendering a single scene with a
+	 * fixed shader and model.
+	 */
 	private static void render() {
 		
 //		Model.enableAttribs();
@@ -131,6 +167,12 @@ public class Main {
 //		Model.disableAttribs();
 	}
 	
+	/**
+	 * Terminates the Java application with a specified status code. The status code is
+	 * passed as an argument to the `System.exit` method, which then terminates the application.
+	 *
+	 * @param status exit status of the program, indicating the result of its execution.
+	 */
 	private static void exit(int status) {
 		System.exit(status);
 	}

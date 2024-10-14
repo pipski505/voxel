@@ -8,6 +8,10 @@ import com.ch.SimplexNoise;
 import com.ch.Util;
 import com.ch.math.Matrix4f;
 
+/**
+ * Represents a 3D chunk of data in a game environment, generating block positions
+ * based on Simplex Noise and updating block relationships.
+ */
 public class Chunk {
 
 	public static final int CHUNK_SIZE = 64;
@@ -18,6 +22,13 @@ public class Chunk {
 	public int x, y, z;
 	private Model model;
 	
+	/**
+	 * Returns a model when called, creating a new model if `to_gen_model` is true and
+	 * resetting `to_gen_model` to false after creation.
+	 *
+	 * @returns a pre-generated model object, or the existing model if it has already
+	 * been generated.
+	 */
 	public Model getModel() {
 		if (to_gen_model) {
 			createModel();
@@ -26,6 +37,13 @@ public class Chunk {
 		return model;
 	}
 	
+	/**
+	 * Returns a 4x4 matrix representing the translation of a 3D object in the world,
+	 * where the object's position is determined by the `x`, `y`, and `z` coordinates
+	 * scaled by a `CHUNK_SIZE` value.
+	 *
+	 * @returns a 4x4 translation matrix representing the object's position in 3D space.
+	 */
 	public Matrix4f getModelMatrix() {
 		return new Matrix4f().initTranslation(x * CHUNK_SIZE, y * CHUNK_SIZE, z * CHUNK_SIZE);
 	}
@@ -51,6 +69,10 @@ public class Chunk {
 	
 	
 
+	/**
+	 * Updates the neighbor flags of each block in a chunk based on the presence or absence
+	 * of adjacent blocks in the same or neighboring chunks.
+	 */
 	public void updateBlocks() {
 		for (int i = 0; i < CHUNK_SIZE_CUBED; i++) {
 			Block b = blocks[i];
@@ -145,6 +167,14 @@ public class Chunk {
 	
 	public void toGenModel() { toGenModel(false); };
 	
+	/**
+	 * Generates a 3D model by iterating through blocks, calling the `gen` method to
+	 * process each block, and updating model arrays. The function also toggles the
+	 * `to_gen_model` flag based on the `now` parameter.
+	 *
+	 * @param now flag for whether the model generation should be performed immediately
+	 * or not.
+	 */
 	public void toGenModel(boolean now) {
 
 		int max_index = 0;
@@ -180,10 +210,20 @@ public class Chunk {
 		
 	}
 	
+	/**
+	 * Loads a 3D model from a set of vertices and indices, which are converted to float
+	 * and integer arrays, respectively, and stores the loaded model in the `model` field.
+	 */
 	private void createModel() {
 		this.model = Model.load(Util.toFloatArray(vertices), Util.toIntArray(indices));
 	}
 	
+	/**
+	 * Generates a model by calling `toGenModel` with a boolean parameter set to `true`,
+	 * then returns the generated model.
+	 *
+	 * @returns an instance of the `Model` class.
+	 */
 	public Model genModel() {
 		
 		toGenModel(true);
@@ -191,6 +231,35 @@ public class Chunk {
 		return this.model;
 	}
 
+	/**
+	 * Generates vertices and indices for a 3D block based on its position and orientation.
+	 *
+	 * @param vertices collection of 3D vertices used to construct a mesh, and it is
+	 * dynamically populated with new vertices as they are generated.
+	 *
+	 * Transform.
+	 *
+	 * @param indices list of indices into the `vertices` list that correspond to the
+	 * generated vertices.
+	 *
+	 * Deconstructs into a series of lists, each representing the indices for a specific
+	 * block type.
+	 * Each list is of length 6, representing the indices for a single block's vertices.
+	 * The indices follow a consistent pattern, incrementing by one for each vertex.
+	 *
+	 * @param block block that is being processed, which contains properties such as
+	 * position and flags (`ft`, `bk`, `bt`, `tp`, `lt`, `rt`) that determine the geometry
+	 * to be generated.
+	 *
+	 * Exist as boolean flags.
+	 *
+	 * @param max_index current index in the `indices` list, and is incremented by the
+	 * number of new indices added for each block face.
+	 *
+	 * @returns the updated maximum index value for the vertices and indices lists.
+	 *
+	 * Returned by the `gen` function is an integer value.
+	 */
 	private static int gen(List<Float> vertices, List<Integer> indices, Block block, int max_index) {
 		
 		float x = block.x;

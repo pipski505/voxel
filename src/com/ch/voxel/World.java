@@ -6,6 +6,10 @@ import com.ch.Camera;
 import com.ch.Shader;
 
 
+/**
+ * Manages 3D chunks of terrain data, generating new chunks as the player moves and
+ * updating the visible chunk set for rendering.
+ */
 public class World {
 
 	private int x, y, z; // in chunks
@@ -21,6 +25,11 @@ public class World {
 		gen();
 	}
 	
+	/**
+	 * Generates and updates chunks of a 3D terrain model. It creates new instances of
+	 * the `Chunk` class, updates their block state, and generates their visual representation.
+	 * The chunks are distributed across a 3D grid defined by dimensions W, H, and D.
+	 */
 	private void gen() {
 		for (int i = 0; i < W; i++)
 			for (int j = 0; j < H; j++)
@@ -31,6 +40,17 @@ public class World {
 				}
 	}
 
+	/**
+	 * Updates the position of a chunk in a 3D grid, handling cases where the chunk needs
+	 * to be moved up or down in the grid to maintain a fixed depth.
+	 *
+	 * @param x x-coordinate of a position in a 3D space.
+	 *
+	 * @param y y-coordinate of the position to be updated and is currently unused.
+	 *
+	 * @param z determines the vertical position of the chunk in the world and is used
+	 * to update the chunk's position.
+	 */
 	public void updatePos(float x, float y, float z) {
 		final int _x = (int) (x / Chunk.CHUNK_SIZE);
 		final int _y = 0;//(int) (y / Chunk.CHUNK_SIZE);
@@ -215,6 +235,20 @@ public class World {
 		/* welp... this logic sure looks aweful */
 	}
 
+	/**
+	 * Renders 3D chunks of a world, applying a color based on the chunk's coordinates
+	 * and drawing each chunk's model, using a provided shader and camera.
+	 *
+	 * @param s Shader object used to set vertex uniforms and draw the chunk model.
+	 *
+	 * Set to Shader object with uniform and matrix properties.
+	 *
+	 * @param c Camera object used to calculate the model-view-projection matrix for each
+	 * chunk.
+	 *
+	 * Cameras are typically represented by the `Camera` class.
+	 * Its main properties are a `getViewProjection` method and a `getModelMatrix` method.
+	 */
 	public void render(Shader s, Camera c) {
 		for (int i = 0; i < W; i++)
 			for (int j = 0; j < H; j++)
