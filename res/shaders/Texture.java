@@ -28,8 +28,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 
 /**
- * Loads and stores image data from a file, generating an OpenGL texture ID and
- * configuring texture parameters.
+ * Loads textures from image files, generates OpenGL texture IDs, and binds them to
+ * the graphics pipeline for rendering.
  */
 public class Texture {
 	
@@ -42,26 +42,28 @@ public class Texture {
 	}
 
 	/**
-	 * Overrides the Object's finalize method, which is called just before an object is
-	 * about to be destroyed. It is intended to perform cleanup operations, such as
-	 * releasing system resources. However, it is not guaranteed to be called.
+	 * Is a method called by the garbage collector when an object is about to be destroyed,
+	 * allowing for any final cleanup or resource release.
 	 */
 	@Override
 	protected void finalize() {
 	}
 
 	/**
-	 * Calls the `bind` function with a default argument of 0.
+	 * Calls the `bind` function with an argument of 0, indicating a default or initial
+	 * binding.
 	 */
 	public void bind() {
 		bind(0);
 	}
 
 	/**
-	 * Binds a texture to the specified sampler slot in the graphics pipeline, ensuring
-	 * the slot is within the valid range and activating the corresponding texture unit.
+	 * Binds a texture to the graphics pipeline by setting the active texture unit and
+	 * binding the specified texture. It asserts that the sampler slot is within the valid
+	 * range of 0 to 31.
 	 *
-	 * @param samplerSlot texture unit slot to bind the texture to.
+	 * @param samplerSlot texture unit to bind the texture to, with a valid range of 0
+	 * to 31.
 	 */
 	public void bind(int samplerSlot) {
 		assert (samplerSlot >= 0 && samplerSlot <= 31);
@@ -71,22 +73,25 @@ public class Texture {
 
 	/**
 	 * Returns the value of the `id` variable.
+	 * This value is presumably an integer identifier.
 	 *
-	 * @returns the value of the `id` variable.
+	 * @returns an integer value representing the id.
 	 */
 	public int getID() {
 		return id;
 	}
 
 	/**
-	 * Loads a texture from a file, converts it to a format suitable for OpenGL, generates
-	 * a new OpenGL texture, and returns its ID. It handles exceptions by printing the
-	 * error message and exiting the program.
+	 * Loads a texture from a specified file, converts it to a format suitable for OpenGL,
+	 * and generates a new OpenGL texture ID. It handles exceptions and returns the texture
+	 * ID on success, or 0 on failure.
 	 *
-	 * @param fileName path to a file containing the image to be loaded and converted
-	 * into a texture.
+	 * @param fileName path to the image file to be loaded and converted into a texture.
 	 *
-	 * @returns a unique integer identifier for a generated OpenGL texture.
+	 * @returns a unique integer identifier for the loaded texture.
+	 *
+	 * Generate a unique integer ID for the loaded texture, representing the OpenGL texture
+	 * object.
 	 */
 	private static int loadTexture(String fileName) {
 		try {

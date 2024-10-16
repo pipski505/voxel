@@ -13,16 +13,16 @@ import com.ch.math.Vector3f;
 import com.ch.voxel.World;
 
 /**
- * Establishes an OpenGL environment, initializes graphics settings, and enters a
- * game loop.
+ * Handles the initialization and main loop of an OpenGL application, responsible for
+ * setting up the display, loading shaders and textures, and rendering a world.
  */
 public class Main {
 	
 	/**
-	 * Initializes the display, sets up OpenGL, enters a loop, and then terminates the
-	 * program with exit code 0.
+	 * Initializes the display and OpenGL, enters a loop of continuous execution, and
+	 * terminates the program with a successful exit status.
 	 *
-	 * @param args command-line arguments passed to the program.
+	 * @param args command-line arguments passed to the Java program.
 	 */
 	public static void main(String[] args) {
 		
@@ -41,9 +41,9 @@ public class Main {
 	private static World w;
 	
 	/**
-	 * Initializes display settings, sets display mode to 1920x1080, creates a display
-	 * with specified pixel format and context attributes, enables VSync, and prints
-	 * OpenGL version.
+	 * Sets the display mode to 1920x1080, creates a new display with specific pixel
+	 * format and context attributes, enables vertical synchronization, and prints the
+	 * OpenGL version to the console.
 	 */
 	private static void initDisplay() {
 		try {
@@ -57,9 +57,9 @@ public class Main {
 	}
 	
 	/**
-	 * Initializes the OpenGL environment by setting the clear color, enabling face culling
-	 * and depth testing, loading shaders and textures, and creating a camera and a world
-	 * object.
+	 * Initializes OpenGL settings, enabling culling and depth testing, and sets the clear
+	 * color.
+	 * It also initializes the camera, shader, and texture resources.
 	 */
 	private static void initGL() {
 		
@@ -104,9 +104,9 @@ public class Main {
 	}
 	
 	/**
-	 * Maintains a game loop, continuously updating and rendering the game until the
-	 * window is closed or the ESC key is pressed. It displays the current FPS, memory
-	 * usage, and updates the game state.
+	 * Runs the main game loop continuously until the user requests the window to close
+	 * or presses the escape key. It updates the game state, renders the graphics, and
+	 * displays the frame rate and memory usage.
 	 */
 	private static void loop() {
 		
@@ -131,10 +131,12 @@ public class Main {
 	}
 	
 	/**
-	 * Processes input with a given time step, updates an object's position based on its
-	 * current transform.
+	 * Processes the game input and updates the game world's position based on the camera's
+	 * position. The function takes a time delta `dt` as input, indicating the time elapsed
+	 * since the last update.
 	 *
-	 * @param dt time interval since the last update, used to pace the game logic.
+	 * @param dt time difference between the current and previous frames, used to update
+	 * game logic and physics.
 	 */
 	private static void update(float dt) {
 		c.processInput(dt, 5, .3f);
@@ -142,9 +144,8 @@ public class Main {
 	}
 
 	/**
-	 * Binds a shader and renders a scene, specifically a 3D model. It appears to be a
-	 * simplified version of a 3D rendering function, rendering a single scene with a
-	 * fixed shader and model.
+	 * Binds a shader, renders a scene using the `w.render` method, and passes the shader
+	 * and camera objects as parameters.
 	 */
 	private static void render() {
 		
@@ -168,10 +169,11 @@ public class Main {
 	}
 	
 	/**
-	 * Terminates the Java application with a specified status code. The status code is
-	 * passed as an argument to the `System.exit` method, which then terminates the application.
+	 * Terminates the Java application immediately, exiting the virtual machine with a
+	 * specified status code. This status code can be used by the operating system to
+	 * determine the application's exit status. The function is designed to be called statically.
 	 *
-	 * @param status exit status of the program, indicating the result of its execution.
+	 * @param status exit status that is passed to the operating system upon program termination.
 	 */
 	private static void exit(int status) {
 		System.exit(status);

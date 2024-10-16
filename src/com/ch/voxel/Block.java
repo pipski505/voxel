@@ -1,12 +1,12 @@
 package com.ch.voxel;
 
 /**
- * Represents a three-dimensional block in a grid-based environment.
+ * Represents a 3D block in a virtual environment with a specified position and various
+ * boolean properties.
  *
- * - z (int): represents a three-dimensional coordinate.
+ * - z (int): represents a 3D coordinate.
  *
- * - rt (boolean): Represents a boolean flag indicating a right-facing orientation
- * or state.
+ * - rt (boolean): Represents a boolean value indicating a right side of a block.
  */
 public class Block {
 	
